@@ -8,21 +8,32 @@
 </head>
 <body>
   <div class="container">
+    <section class="welcome-message">
+      <h2>Добро пожаловать в RPM Стрип-клуб!</h2>
+      <p>Эксклюзивные услуги, атмосфера роскоши и индивидуальный подход к каждому клиенту.</p>
+      <p>Выбирайте из широкого спектра развлечений и получайте удовольствие, которого вы достойны.</p>
+    </section>
+
     <h1>RPM Стрип-клуб</h1>
 
     <nav>
       <button onclick="showSection('desc')">Описание</button>
       <button onclick="showSection('price')">Прайс</button>
-      <button onclick="showSection('order')">Оформление заказа</button>
+      <button onclick="showSection('order')">🛒</button>
       <button onclick="showSection('vip')">VIP Клиент</button>
     </nav>
 
     <div id="desc" class="card tab">
       <h2>Что на сайте</h2>
-      <p><strong>Сутенёр: someteaze</strong> представляет первый сайт по стрип-клубу.<br />
-        Связь:<br />
-        Дискорд: <code>wsometeazew</code><br />
-        Телеграм: <code>@crips_someteaze</code></p>
+      <p><strong>Сутенёр: someteaze</strong> представляет первый сайт по стрип-клубу.</p>
+      <p>Добро пожаловать в RPM Стрип-клуб — место, где ваши желания становятся реальностью и каждое мгновение наполнено страстью и эксклюзивным обслуживанием.</p>
+      <p>Здесь вы найдёте широкий спектр услуг от чувственных танцев до персонального внимания с полным погружением в атмосферу роскоши и удовольствия.</p>
+      <p>Связь:</p>
+      <ul>
+        <li>Дискорд: <code>wsometeazew</code></li>
+        <li>Телеграм: <code>@crips_someteaze</code></li>
+      </ul>
+      <p>Закажите услугу — и окунитесь в незабываемый опыт, который подарит только RPM Стрип-клуб!</p>
     </div>
 
     <div id="price" class="card tab">
@@ -77,13 +88,11 @@
           <option value="VIP Клиент">VIP Клиент</option>
         </select>
 
-        <div id="timePromoWrapper">
-          <label>Когда:</label>
-          <input type="datetime-local" name="date" id="dateInput" required />
+        <label id="label-date">Когда:</label>
+        <input type="datetime-local" name="date" id="dateInput" required />
 
-          <label>Промокод (если есть):</label>
-          <input type="text" name="promo" id="promo" placeholder="Введите промокод" />
-        </div>
+        <label id="label-promo">Промокод (если есть):</label>
+        <input type="text" name="promo" id="promo" placeholder="Введите промокод" />
 
         <p id="priceDisplay"></p>
 
@@ -128,15 +137,16 @@
       'Совместная ванна + массаж': 25000,
       'Ночь со мной': 100000,
       'Фото-/видеосъёмка + сопровождение': 80000,
-      'VIP Клиент': 200000,
+      'VIP Клиент': 200000
     };
 
     const orderForm = document.getElementById('orderForm');
     const serviceSelect = document.getElementById('service');
     const promoInput = document.getElementById('promo');
     const priceDisplay = document.getElementById('priceDisplay');
-    const timePromoWrapper = document.getElementById('timePromoWrapper');
     const dateInput = document.getElementById('dateInput');
+    const labelDate = document.getElementById('label-date');
+    const labelPromo = document.getElementById('label-promo');
 
     function updatePrice() {
       const selectedService = serviceSelect.value;
@@ -151,25 +161,22 @@
       }
 
       priceDisplay.textContent = `Цена: ${finalPrice.toLocaleString()}$` + promoText;
-    }
 
-    function updateFormFieldsVisibility() {
-      if (serviceSelect.value === 'VIP Клиент') {
-        timePromoWrapper.style.display = 'none';
-        dateInput.required = false;
-        promoInput.required = false;
+      // Скрывать дату и промокод, если выбран VIP Клиент
+      if (selectedService === 'VIP Клиент') {
+        dateInput.style.display = 'none';
+        labelDate.style.display = 'none';
+        promoInput.style.display = 'none';
+        labelPromo.style.display = 'none';
       } else {
-        timePromoWrapper.style.display = 'block';
-        dateInput.required = true;
-        promoInput.required = false;
+        dateInput.style.display = 'block';
+        labelDate.style.display = 'block';
+        promoInput.style.display = 'block';
+        labelPromo.style.display = 'block';
       }
     }
 
-    serviceSelect.addEventListener('change', () => {
-      updatePrice();
-      updateFormFieldsVisibility();
-    });
-
+    serviceSelect.addEventListener('change', updatePrice);
     promoInput.addEventListener('input', updatePrice);
 
     orderForm.addEventListener('submit', async function (e) {
@@ -187,30 +194,30 @@
         discountMsg = '\n(Промокод применён: -10%)';
       }
 
-      const content = `<@&1371644238349205535> НОВЫЙ ЗАКАЗ
-Discord: ${data.get('discord')}
-RPM: ${data.get('rpm')}
-Услуга: ${service}
-Цена: ${finalPrice.toLocaleString()}$${discountMsg}`;
+      let content = `НОВЫЙ ЗАКАЗ <@&1371644238349205535>\nDiscord: ${data.get('discord')}\nRPM: ${data.get('rpm')}\nУслуга: ${service}\n`;
+
+      if (service !== 'VIP Клиент') {
+        content += `Дата: ${data.get('date')}\n`;
+      }
+
+      content += `Цена: ${finalPrice.toLocaleString()}$${discountMsg}`;
 
       await fetch(
         'https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content }),
+          body: JSON.stringify({ content })
         }
       );
 
       alert('Заказ отправлен. Ожидайте подтверждения в Discord.');
       orderForm.reset();
       updatePrice();
-      updateFormFieldsVisibility();
+      showSection('desc');
     });
 
-    // Инициализация
     updatePrice();
-    updateFormFieldsVisibility();
   </script>
 </body>
 </html>
