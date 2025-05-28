@@ -2,42 +2,52 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RPM Стрип-клуб</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div id="promoPopup" style="display:none;">
+    🎉 Промокод <strong>YRA</strong> действует в честь открытия сайта до <strong>29.05.2025 16:00</strong>!
+  </div>
+
   <div class="container">
     <h1>RPM Стрип-клуб</h1>
+
     <nav>
-      <a href="#desc">Описание</a>
-      <a href="#price">Прайс</a>
-      <a href="#vip">VIP Клиент</a>
-      <a href="#order">Заказать</a>
+      <button onclick="showTab('desc')">Описание</button>
+      <button onclick="showTab('price')">Прайс</button>
+      <button onclick="showTab('vip')">VIP Клиент</button>
     </nav>
 
-    <div id="desc" class="card">
+    <div id="desc" class="card active">
       <h2>Что на сайте</h2>
-      <p><strong>Сутенёр: someteaze</strong> — первый цифровой стрип-клуб в RPM.<br>
-        Услуги включают танцы, ролевые игры, VIP-статус и многое другое.<br>
-        Discord: <code>wsometeazew</code> | Telegram: <code>@crips_someteaze</code>
+      <p>
+        <strong>RPM Стрип-клуб</strong> — это цифровое пространство развлечений в RP мире, где можно заказать
+        приват-танцы, ролевые сценарии, BDSM-практики и элитные VIP-услуги. Мы предлагаем не просто интерактивные услуги,
+        а атмосферу ночного клуба, где каждый пользователь может стать участником уникального ролевого опыта. Все заказы
+        оформляются прямо через сайт. <br /><br />
+        Связь с организатором:<br />
+        Discord: <code>wsometeazew</code><br />
+        Telegram: <code>@crips_someteaze</code><br />
+        Присоединяйтесь и получите 5% скидку с промокодом <strong>YRA</strong>!
       </p>
     </div>
 
     <div id="price" class="card">
       <h2>Категории услуг</h2>
       <div class="grid">
-        <div class="card">Стандарт (1 час) — 40000</div>
-        <div class="card">Минет — 25000</div>
-        <div class="card">Женское доминирование — 38000</div>
-        <div class="card">Подчинение — 80000</div>
-        <div class="card">Шибари — 20000</div>
-        <div class="card">BDSM — 40000</div>
-        <div class="card">Приват-танец — 10000</div>
-        <div class="card">Ванна + массаж — 25000</div>
-        <div class="card">Ночь со мной — 100000</div>
-        <div class="card">Фото-/видеосъёмка — 80000</div>
-        <div class="card">VIP Клиент — 200000</div>
+        <div class="card-item">Стандарт (1 час) — 40000</div>
+        <div class="card-item">Минет — 25000</div>
+        <div class="card-item">Женское доминирование — 38000</div>
+        <div class="card-item">Подчинение — 80000</div>
+        <div class="card-item">Шибари — 20000</div>
+        <div class="card-item">BDSM — 40000</div>
+        <div class="card-item">Приват-танец — 10000</div>
+        <div class="card-item">Ванна + массаж — 25000</div>
+        <div class="card-item">Ночь со мной — 100000</div>
+        <div class="card-item">Фото-/видеосъёмка — 80000</div>
+        <div class="card-item">VIP Клиент — 200000</div>
       </div>
     </div>
 
@@ -46,82 +56,40 @@
       <ul>
         <li>Персональный менеджер</li>
         <li>Приоритет обслуживания</li>
-        <li>10% скидка</li>
-        <li>VIP бейдж</li>
+        <li>10% скидка на все заказы</li>
+        <li>Эксклюзивные сценарии</li>
+        <li>VIP бейдж в системе</li>
       </ul>
-    </div>
-
-    <div id="order" class="card">
-      <h2>Оформление заказа</h2>
-      <form id="orderForm">
-        <label>Discord:</label>
-        <input type="text" name="discord" required />
-
-        <label>RPM Ник:</label>
-        <input type="text" name="rpm" required />
-
-        <label>Услуга:</label>
-        <select name="service" id="serviceSelect" required>
-          <option value="Стандарт (1 час)" data-price="40000">Стандарт (1 час)</option>
-          <option value="Минет" data-price="25000">Минет</option>
-          <option value="Женское доминирование" data-price="38000">Женское доминирование</option>
-          <option value="Подчинение" data-price="80000">Подчинение</option>
-          <option value="Шибари" data-price="20000">Шибари</option>
-          <option value="BDSM" data-price="40000">BDSM</option>
-          <option value="Приват-танец" data-price="10000">Приват-танец</option>
-          <option value="Ванна + массаж" data-price="25000">Ванна + массаж</option>
-          <option value="Ночь со мной" data-price="100000">Ночь со мной</option>
-          <option value="Фото-/видеосъёмка" data-price="80000">Фото-/видеосъёмка</option>
-          <option value="VIP Клиент" data-price="200000">VIP Клиент</option>
-        </select>
-
-        <label>Когда:</label>
-        <input type="datetime-local" name="date" required />
-
-        <label>Промокод:</label>
-        <input type="text" name="promo" id="promoCode" value="YRA" />
-
-        <p><strong>Итоговая цена: <span id="totalPrice">0</span></strong></p>
-
-        <button type="submit">Отправить</button>
-      </form>
     </div>
   </div>
 
-  <script>
-    const serviceSelect = document.getElementById('serviceSelect');
-    const promoCode = document.getElementById('promoCode');
-    const totalPriceEl = document.getElementById('totalPrice');
+  <div class="order-floating-button" onclick="toggleOrder()">🛒</div>
 
-    function updatePrice() {
-      const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
-      let price = parseInt(selectedOption.getAttribute('data-price')) || 0;
-      if (promoCode.value.trim().toUpperCase() === 'YRA') {
-        price = Math.round(price * 0.95);
-      }
-      totalPriceEl.textContent = price + ' ₽';
+  <div id="order" class="card">
+    <h2>Оформление заказа</h2>
+    <!-- Форма заказа сюда -->
+  </div>
+
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('.card').forEach(tab => {
+        if (!['order'].includes(tab.id)) tab.classList.remove('active');
+      });
+      const target = document.getElementById(id);
+      if (target && target.id !== 'order') target.classList.add('active');
     }
 
-    serviceSelect.addEventListener('change', updatePrice);
-    promoCode.addEventListener('input', updatePrice);
-    window.addEventListener('load', updatePrice);
+    function toggleOrder() {
+      const orderBox = document.getElementById('order');
+      orderBox.classList.toggle('active');
+    }
 
-    document.getElementById('orderForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const form = e.target;
-      const data = {
-        content: `**Новый заказ!**\\nDiscord: ${form.discord.value}\\nRPM: ${form.rpm.value}\\nУслуга: ${form.service.value}\\nДата: ${form.date.value}\\nПромокод: ${form.promo.value}`
-      };
-
-      await fetch("https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-
-      alert("Заказ отправлен!");
-      form.reset();
-      updatePrice();
+    window.addEventListener('load', () => {
+      const promoDeadline = new Date("2025-05-29T16:00:00");
+      if (new Date() < promoDeadline) {
+        document.getElementById("promoPopup").style.display = "block";
+        setTimeout(() => document.getElementById("promoPopup").style.display = "none", 10000);
+      }
     });
   </script>
 </body>
