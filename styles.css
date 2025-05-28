@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(160deg, #1e0624, #39114d);
+  background: linear-gradient(160deg, #2c0735, #541a5f, #7c2c8d);
   color: #e6d6f3;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -24,7 +24,7 @@ nav {
 
 nav a {
   display: inline-block;
-  background-color: #65228f;
+  background-color: #7c2c8d;
   color: white;
   padding: 10px 20px;
   margin: 5px;
@@ -33,12 +33,13 @@ nav a {
   cursor: pointer;
 }
 
-nav a:hover, nav a.active {
-  background-color: #8030b8;
+nav a:hover,
+nav a.active {
+  background-color: #a347c7;
 }
 
 .card {
-  background-color: #3a154a;
+  background-color: #491b5f;
   border-radius: 20px;
   padding: 24px;
   margin: 20px 0;
@@ -78,7 +79,7 @@ nav a:hover, nav a.active {
   bottom: 100px;
   right: 20px;
   width: 320px;
-  background-color: #3a154a;
+  background-color: #4e1e61;
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 25px rgba(190, 134, 255, 0.6);
@@ -100,7 +101,7 @@ nav a:hover, nav a.active {
 
 .order-popup input,
 .order-popup select {
-  background-color: #65228f;
+  background-color: #7c2c8d;
   border-radius: 10px;
   padding: 10px;
   border: none;
@@ -110,7 +111,7 @@ nav a:hover, nav a.active {
 
 .order-popup button[type="submit"] {
   margin-top: 20px;
-  background-color: #65228f;
+  background-color: #a347c7;
   padding: 14px;
   font-size: 18px;
   font-weight: bold;
@@ -122,7 +123,7 @@ nav a:hover, nav a.active {
 }
 
 .order-popup button[type="submit"]:hover {
-  background-color: #8030b8;
+  background-color: #c062ea;
 }
 
 .order-popup button#closeOrder {
@@ -133,6 +134,36 @@ nav a:hover, nav a.active {
   cursor: pointer;
   font-size: 14px;
   text-decoration: underline;
+}
+
+.price-note {
+  font-style: italic;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #d7b0f2;
+}
+
+.service-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.service-card {
+  flex: 1 1 calc(50% - 10px);
+  background-color: #4e1e61;
+  color: #fff;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: scale(1.02);
+  background-color: #7c2c8d;
 }
 
 @media (max-width: 600px) {
@@ -150,5 +181,9 @@ nav a:hover, nav a.active {
     width: 90%;
     right: 5%;
     bottom: 80px;
+  }
+
+  .service-card {
+    flex: 1 1 100%;
   }
 }
