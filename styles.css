@@ -1,69 +1,20 @@
-
 body {
-  background: linear-gradient(145deg, #1e0624, #2a0a34);
+  background: linear-gradient(160deg, #1e0624, #39114d);
   color: #e6d6f3;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  animation: slideUp 0.7s ease-out;
 }
 
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-h1, h2, h3 {
-  color: #cba0ff;
+h1, h2 {
   text-align: center;
-}
-
-.card {
-  background-color: #2e0e3b;
-  border-radius: 16px;
-  padding: 20px;
-  margin: 20px 0;
-  box-shadow: 0 0 15px rgba(182, 137, 240, 0.4);
-  transition: transform 0.3s ease;
-}
-
-.card:hover {
-  transform: scale(1.02);
-}
-
-button, select, input {
-  background-color: #4d2170;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  margin-top: 10px;
-  transition: background-color 0.3s;
-}
-
-button:hover, select:hover, input:hover {
-  background-color: #5e2b88;
-}
-
-input[type="text"], input[type="datetime-local"] {
-  width: 100%;
-  margin-top: 5px;
-}
-
-.tab {
-  display: none;
+  color: #cba0ff;
 }
 
 nav {
@@ -71,43 +22,57 @@ nav {
   margin: 20px 0;
 }
 
-nav button {
-  margin: 5px;
-}
-
-.order-icon {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #4d2170;
+nav a {
+  display: inline-block;
+  background-color: #65228f;
   color: white;
-  padding: 12px;
-  border-radius: 50%;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 999;
-  transition: background-color 0.3s;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 10px;
+  text-decoration: none;
 }
 
-.order-icon:hover {
-  background-color: #5e2b88;
+nav a:hover {
+  background-color: #8030b8;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 10px;
-  }
+.card {
+  background-color: #3a154a;
+  border-radius: 20px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 4px 25px rgba(190, 134, 255, 0.3);
+}
 
-  h1 {
-    font-size: 24px;
+button, select, input {
+  background-color: #65228f;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 14px;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #8030b8;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  nav a {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
   }
 
   .card {
-    padding: 15px;
-  }
-
-  .order-icon {
-    top: 10px;
-    right: 10px;
+    padding: 16px;
   }
 }
