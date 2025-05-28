@@ -44,11 +44,11 @@ nav button:hover {
   padding: 24px;
   margin: 20px 0;
   box-shadow: 0 4px 25px rgba(190, 134, 255, 0.3);
-  display: none;
+  display: none; /* Все вкладки скрыты по умолчанию */
 }
 
 .card.active {
-  display: block;
+  display: block; /* Показываем только активную */
 }
 
 .grid {
@@ -109,6 +109,10 @@ button:hover {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(255,255,255,0.2);
   z-index: 9999;
+  font-weight: 600;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
 }
 
 /* Кнопка оформления заказа */
@@ -135,18 +139,4 @@ button:hover {
   background-color: #8030b8;
 }
 
-/* Блок заказа */
-#order {
-  position: fixed;
-  bottom: 100px;
-  right: 20px;
-  width: 300px;
-  max-height: 90vh;
-  overflow-y: auto;
-  z-index: 999;
-  display: none;
-}
-
-#order.active {
-  display: block;
-}
+/*
