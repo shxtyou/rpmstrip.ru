@@ -22,17 +22,19 @@ nav {
   margin: 20px 0;
 }
 
-nav a {
-  display: inline-block;
+nav button {
   background-color: #65228f;
   color: white;
   padding: 10px 20px;
   margin: 5px;
+  border: none;
   border-radius: 10px;
-  text-decoration: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-nav a:hover {
+nav button:hover {
   background-color: #8030b8;
 }
 
@@ -42,6 +44,27 @@ nav a:hover {
   padding: 24px;
   margin: 20px 0;
   box-shadow: 0 4px 25px rgba(190, 134, 255, 0.3);
+  display: none;
+}
+
+.card.active {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.card-item {
+  background-color: #4b1e67;
+  border-radius: 15px;
+  padding: 15px 20px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(200, 150, 255, 0.25);
+  color: #e6d6f3;
+  font-weight: 600;
 }
 
 button, select, input {
@@ -53,20 +76,17 @@ button, select, input {
   border: none;
   margin-top: 10px;
   width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #8030b8;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-}
-
 @media (max-width: 600px) {
-  nav a {
+  nav button {
     display: block;
     width: 100%;
     margin: 10px 0;
@@ -75,4 +95,58 @@ button:hover {
   .card {
     padding: 16px;
   }
+}
+
+/* Промо-попап */
+#promoPopup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #65228f;
+  padding: 20px;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  z-index: 9999;
+}
+
+/* Кнопка оформления заказа */
+.order-floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #65228f;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.order-floating-button:hover {
+  background-color: #8030b8;
+}
+
+/* Блок заказа */
+#order {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 300px;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 999;
+  display: none;
+}
+
+#order.active {
+  display: block;
 }
