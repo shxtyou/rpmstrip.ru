@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RPM Стрип-клуб</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
@@ -13,6 +13,7 @@
     <nav>
       <button onclick="showSection('desc')">Описание</button>
       <button onclick="showSection('price')">Прайс</button>
+      <button onclick="showSection('order')">Оформление заказа</button>
       <button onclick="showSection('vip')">VIP Клиент</button>
     </nav>
 
@@ -52,6 +53,44 @@
       </div>
     </div>
 
+    <div id="order" class="card tab">
+      <h2>📝 Оформить заказ</h2>
+      <form id="orderForm">
+        <label>Ник в Discord:</label>
+        <input type="text" name="discord" required />
+
+        <label>Ник на RPM:</label>
+        <input type="text" name="rpm" required />
+
+        <label>Выберите услугу:</label>
+        <select name="service" id="service">
+          <option value="Стандарт (1 час)">Стандарт (1 час)</option>
+          <option value="Минет">Минет</option>
+          <option value="Женское доминирование">Женское доминирование</option>
+          <option value="Подчинение">Подчинение</option>
+          <option value="Шибари">Шибари</option>
+          <option value="BDSM">BDSM</option>
+          <option value="Стриптиз / Приват-танец">Стриптиз / Приват-танец</option>
+          <option value="Совместная ванна + массаж">Совместная ванна + массаж</option>
+          <option value="Ночь со мной">Ночь со мной</option>
+          <option value="Фото-/видеосъёмка + сопровождение">Фото-/видеосъёмка + сопровождение</option>
+          <option value="VIP Клиент">VIP Клиент</option>
+        </select>
+
+        <div id="timePromoWrapper">
+          <label>Когда:</label>
+          <input type="datetime-local" name="date" id="dateInput" required />
+
+          <label>Промокод (если есть):</label>
+          <input type="text" name="promo" id="promo" placeholder="Введите промокод" />
+        </div>
+
+        <p id="priceDisplay"></p>
+
+        <button type="submit">Подтвердить заказ</button>
+      </form>
+    </div>
+
     <div id="vip" class="card tab">
       <h2>👑 VIP Клиент — 200.000$</h2>
       <p>Статус VIP клиента предоставляет следующие преимущества:</p>
@@ -65,139 +104,113 @@
     </div>
   </div>
 
-  <!-- Иконка корзины -->
-  <div id="cartIcon" title="Оформить заказ" onclick="showSection('order')">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 
-               0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16 
-               14h9.66l1.24-6H6.21l1.22 6zM20 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 
-               2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 
-               12h7.45c.75 0 1.41-.41 1.75-1.03L21.82 6H7.21l-.94-2z"/>
-    </svg>
-  </div>
-
-  <div id="order" class="card tab">
-    <h2>📝 Оформить заказ</h2>
-    <form id="orderForm">
-      <label>Ник в Discord:</label>
-      <input type="text" name="discord" required />
-
-      <label>Ник на RPM:</label>
-      <input type="text" name="rpm" required />
-
-      <label>Выберите услугу:</label>
-      <select name="service" id="service">
-        <option value="Стандарт (1 час)">Стандарт (1 час)</option>
-        <option value="Минет">Минет</option>
-        <option value="Женское доминирование">Женское доминирование</option>
-        <option value="Подчинение">Подчинение</option>
-        <option value="Шибари">Шибари</option>
-        <option value="BDSM">BDSM</option>
-        <option value="Стриптиз / Приват-танец">Стриптиз / Приват-танец</option>
-        <option value="Совместная ванна + массаж">Совместная ванна + массаж</option>
-        <option value="Ночь со мной">Ночь со мной</option>
-        <option value="Фото-/видеосъёмка + сопровождение">Фото-/видеосъёмка + сопровождение</option>
-        <option value="VIP Клиент">VIP Клиент</option>
-      </select>
-
-      <label>Когда:</label>
-      <input type="datetime-local" name="date" required />
-
-      <label>Промокод (если есть):</label>
-      <input type="text" name="promo" id="promo" placeholder="Введите промокод" />
-
-      <p id="priceDisplay"></p>
-
-      <button type="submit">Подтвердить заказ</button>
-    </form>
-  </div>
-
   <script>
     const sections = document.querySelectorAll('.tab');
     function showSection(id) {
-      sections.forEach(s => s.style.display = 'none');
+      sections.forEach(section => (section.style.display = 'none'));
       document.getElementById(id).style.display = 'block';
     }
     showSection('desc');
 
     function toggleTab(id) {
-      document.querySelectorAll('#price > .tab').forEach(tab => tab.style.display = 'none');
+      document.querySelectorAll('.card .tab').forEach(tab => (tab.style.display = 'none'));
       document.getElementById(id).style.display = 'block';
     }
 
     const servicePrices = {
-      "Стандарт (1 час)": 40000,
-      "Минет": 25000,
-      "Женское доминирование": 38000,
-      "Подчинение": 80000,
-      "Шибари": 20000,
-      "BDSM": 40000,
-      "Стриптиз / Приват-танец": 10000,
-      "Совместная ванна + массаж": 25000,
-      "Ночь со мной": 100000,
-      "Фото-/видеосъёмка + сопровождение": 80000,
-      "VIP Клиент": 200000
+      'Стандарт (1 час)': 40000,
+      Минет: 25000,
+      'Женское доминирование': 38000,
+      Подчинение: 80000,
+      Шибари: 20000,
+      BDSM: 40000,
+      'Стриптиз / Приват-танец': 10000,
+      'Совместная ванна + массаж': 25000,
+      'Ночь со мной': 100000,
+      'Фото-/видеосъёмка + сопровождение': 80000,
+      'VIP Клиент': 200000,
     };
 
     const orderForm = document.getElementById('orderForm');
     const serviceSelect = document.getElementById('service');
     const promoInput = document.getElementById('promo');
     const priceDisplay = document.getElementById('priceDisplay');
+    const timePromoWrapper = document.getElementById('timePromoWrapper');
+    const dateInput = document.getElementById('dateInput');
 
     function updatePrice() {
-      const selected = serviceSelect.value;
-      const base = servicePrices[selected] || 0;
-      let price = base;
+      const selectedService = serviceSelect.value;
+      const basePrice = servicePrices[selectedService] || 0;
+      const promo = promoInput.value.trim();
+      let finalPrice = basePrice;
       let promoText = '';
 
-      if (promoInput.value.trim() === "ONYX-2025-ELITE-XR") {
-        price = base * 0.9;
+      if (promo === 'ONYX-2025-ELITE-XR') {
+        finalPrice = basePrice * 0.9;
         promoText = ' (с применением промокода -10%)';
       }
 
-      priceDisplay.textContent = `Цена: ${price.toLocaleString()}$${promoText}`;
+      priceDisplay.textContent = `Цена: ${finalPrice.toLocaleString()}$` + promoText;
     }
 
-    serviceSelect.addEventListener('change', updatePrice);
-    promoInput.addEventListener('input', updatePrice);
-    updatePrice();
+    function updateFormFieldsVisibility() {
+      if (serviceSelect.value === 'VIP Клиент') {
+        timePromoWrapper.style.display = 'none';
+        dateInput.required = false;
+        promoInput.required = false;
+      } else {
+        timePromoWrapper.style.display = 'block';
+        dateInput.required = true;
+        promoInput.required = false;
+      }
+    }
 
-    orderForm.addEventListener('submit', async e => {
+    serviceSelect.addEventListener('change', () => {
+      updatePrice();
+      updateFormFieldsVisibility();
+    });
+
+    promoInput.addEventListener('input', updatePrice);
+
+    orderForm.addEventListener('submit', async function (e) {
       e.preventDefault();
       const data = new FormData(orderForm);
 
-      const promo = data.get("promo").trim();
-      const service = data.get("service");
+      const promo = data.get('promo').trim();
+      const service = data.get('service');
       const basePrice = servicePrices[service] || 0;
       let finalPrice = basePrice;
+      let discountMsg = '';
 
-      if (promo === "ONYX-2025-ELITE-XR") {
+      if (promo === 'ONYX-2025-ELITE-XR') {
         finalPrice = Math.floor(basePrice * 0.9);
+        discountMsg = '\n(Промокод применён: -10%)';
       }
 
-      const content = {
-        content: "<@&1371644238349205535>",
-        embeds: [{
-          title: "✨ Новый заказ",
-          fields: [
-            { name: "Discord", value: data.get("discord"), inline: true },
-            { name: "RPM", value: data.get("rpm"), inline: true },
-            { name: "Услуга", value: service },
-            { name: "Дата", value: data.get("date"), inline: true },
-            { name: "Цена", value: `${finalPrice.toLocaleString()}$`, inline: true }
-          ]
-        }],
-        allowed_mentions: { roles: ["1371644238349205535"] }
-      };
+      const content = `<@&1371644238349205535> НОВЫЙ ЗАКАЗ
+Discord: ${data.get('discord')}
+RPM: ${data.get('rpm')}
+Услуга: ${service}
+Цена: ${finalPrice.toLocaleString()}$${discountMsg}`;
 
-      await fetch("https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(content)
-      });
+      await fetch(
+        'https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content }),
+        }
+      );
 
-      alert("Заказ отправлен. Ожидайте подтверждения в Discord.");
+      alert('Заказ отправлен. Ожидайте подтверждения в Discord.');
+      orderForm.reset();
+      updatePrice();
+      updateFormFieldsVisibility();
     });
+
+    // Инициализация
+    updatePrice();
+    updateFormFieldsVisibility();
   </script>
 </body>
 </html>
