@@ -7,24 +7,25 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="promoPopup" class="promo-popup" style="display:none;">
+  <div id="promoPopup">
     🎉 Промокод <strong>YRA</strong> действует в честь открытия сайта до <strong>29.05.2025 16:00</strong>!
   </div>
 
   <div class="container">
     <h1>RPM Стрип-клуб</h1>
     <nav>
-      <a href="#" data-tab="desc">Описание</a>
-      <a href="#" data-tab="price">Прайс</a>
-      <a href="#" data-tab="vip">VIP Клиент</a>
+      <a href="#" onclick="showTab(event, 'desc')" id="tab-desc" class="active-tab">Описание</a>
+      <a href="#" onclick="showTab(event, 'price')" id="tab-price">Прайс</a>
+      <a href="#" onclick="showTab(event, 'vip')" id="tab-vip">VIP Клиент</a>
     </nav>
 
-    <div id="desc" class="card tab-content">
+    <div id="desc" class="card active">
       <h2>Что на сайте</h2>
       <p>
-        <strong>RPM Стрип-клуб</strong> — это цифровое пространство развлечений в RP мире, где можно заказать приват-танцы, ролевые сценарии, BDSM-практики и элитные VIP-услуги.
-        Мы предлагаем не просто интерактивные услуги, а атмосферу настоящего ночного клуба, где каждый пользователь может стать участником уникального ролевого опыта.
-        Все заказы оформляются прямо через сайт.<br><br>
+        <strong>RPM Стрип-клуб</strong> — это цифровое пространство развлечений в RP мире, где можно заказать
+        приват-танцы, ролевые сценарии, BDSM-практики и элитные VIP-услуги. Мы предлагаем не просто интерактивные услуги,
+        а атмосферу ночного клуба, где каждый пользователь может стать участником уникального ролевого опыта. Все заказы
+        оформляются прямо через сайт.<br><br>
         Связь с организатором:<br>
         Discord: <code>wsometeazew</code><br>
         Telegram: <code>@crips_someteaze</code><br>
@@ -32,7 +33,7 @@
       </p>
     </div>
 
-    <div id="price" class="card tab-content" style="display:none;">
+    <div id="price" class="card">
       <h2>Категории услуг</h2>
       <div class="grid">
         <div class="card">Стандарт (1 час) — 40000</div>
@@ -49,7 +50,7 @@
       </div>
     </div>
 
-    <div id="vip" class="card tab-content" style="display:none;">
+    <div id="vip" class="card">
       <h2>👑 VIP Клиент</h2>
       <ul>
         <li>Персональный менеджер</li>
@@ -61,102 +62,102 @@
     </div>
   </div>
 
-  <div class="order-floating-button" title="Оформить заказ">🛒</div>
+  <!-- Кнопка корзины -->
+  <div class="order-floating-button" title="Оформить заказ" onclick="toggleOrder()">
+    🛒
+  </div>
 
-  <div id="order" class="order-popup">
-    <h2>Оформление заказа</h2>
-    <form id="orderForm">
-      <label for="service">Выберите услугу:</label>
-      <select id="service" name="service" required>
-        <option value="" disabled selected>-- Выберите --</option>
-        <option value="standard">Стандарт (1 час) — 40000</option>
-        <option value="minet">Минет — 25000</option>
-        <option value="female_domination">Женское доминирование — 38000</option>
-        <option value="submission">Подчинение — 80000</option>
-        <option value="shibari">Шибари — 20000</option>
-        <option value="bdsm">BDSM — 40000</option>
-        <option value="private_dance">Приват-танец — 10000</option>
-        <option value="bath_massage">Ванна + массаж — 25000</option>
-        <option value="night">Ночь со мной — 100000</option>
-        <option value="photo_video">Фото-/видеосъёмка — 80000</option>
-        <option value="vip_client">VIP Клиент — 200000</option>
-      </select>
+  <!-- Модальное окно оформления заказа -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="toggleOrder()">&times;</span>
+      <h2>Оформление заказа</h2>
+      <form id="orderForm">
+        <label for="rpmNick">Ваш RPM ник</label>
+        <input type="text" id="rpmNick" name="rpmNick" required placeholder="Введите ваш ник в RPM" />
 
-      <label for="contact">Ваш контакт (Discord/Telegram):</label>
-      <input type="text" id="contact" name="contact" placeholder="Например: @username" required />
+        <label for="promoCode">Промокод</label>
+        <input type="text" id="promoCode" name="promoCode" placeholder="Если есть, введите промокод" />
 
-      <button type="submit">Отправить заказ</button>
-    </form>
-
-    <div id="orderMessage" style="display:none;"></div>
+        <button type="submit">Отправить заказ</button>
+        <div id="orderMessage"></div>
+      </form>
+    </div>
   </div>
 
   <script>
-    // Вкладки
-    const tabs = document.querySelectorAll('nav a');
-    const tabContents = document.querySelectorAll('.tab-content');
+    // Показывать вкладку
+    function showTab(event, tabId) {
+      event.preventDefault();
+      // Убираем активность у всех вкладок и скрываем все карточки
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active-tab'));
+      document.querySelectorAll('.container > .card').forEach(card => card.classList.remove('active'));
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', e => {
-        e.preventDefault();
-        const targetId = tab.getAttribute('data-tab');
-
-        tabContents.forEach(tc => {
-          tc.style.display = (tc.id === targetId) ? 'block' : 'none';
-        });
-      });
-    });
+      // Активируем выбранную вкладку и показываем контент
+      event.currentTarget.classList.add('active-tab');
+      document.getElementById(tabId).classList.add('active');
+    }
 
     // Промо всплывающее окно
     window.addEventListener('load', () => {
       const promoDeadline = new Date("2025-05-29T16:00:00");
       if (new Date() < promoDeadline) {
-        const promoPopup = document.getElementById("promoPopup");
-        promoPopup.style.display = "block";
-        setTimeout(() => promoPopup.style.display = "none", 10000);
+        const promo = document.getElementById('promoPopup');
+        promo.style.display = 'block';
+        setTimeout(() => {
+          promo.style.display = 'none';
+        }, 10000);
       }
     });
 
-    // Открытие/закрытие окна заказа
-    const orderBtn = document.querySelector('.order-floating-button');
-    const orderPopup = document.getElementById('order');
+    // Модальное окно оформления заказа
+    function toggleOrder() {
+      const modal = document.getElementById('orderModal');
+      if (modal.style.display === 'block') {
+        modal.style.display = 'none';
+      } else {
+        modal.style.display = 'block';
+      }
+    }
 
-    orderBtn.addEventListener('click', () => {
-      orderPopup.classList.toggle('active');
-    });
-
-    // Валидация и обработка формы
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
+    // Отправка заказа на Discord webhook
+    document.getElementById('orderForm').addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      const service = this.service.value;
-      const contact = this.contact.value.trim();
-      const messageBox = document.getElementById('orderMessage');
+      const nick = document.getElementById('rpmNick').value.trim();
+      const promo = document.getElementById('promoCode').value.trim();
 
-      if (!service) {
-        alert('Пожалуйста, выберите услугу.');
-        return;
-      }
-      if (!contact) {
-        alert('Пожалуйста, укажите контакт.');
+      if (!nick) {
+        alert('Пожалуйста, введите ваш RPM ник.');
         return;
       }
 
-      // Здесь можно отправить данные на сервер (через fetch/ajax)
+      const webhookURL = "https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1";
 
-      messageBox.textContent = 'Спасибо! Ваш заказ принят.';
-      messageBox.style.color = '#aaffaa';
-      messageBox.style.fontWeight = '700';
-      messageBox.style.marginTop = '15px';
-      messageBox.style.textAlign = 'center';
-      messageBox.style.display = 'block';
+      const content = `Новый заказ!\nRPM ник: ${nick}\nПромокод: ${promo || "нет"}`;
 
-      this.reset();
+      try {
+        const response = await fetch(webhookURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content }),
+        });
 
-      setTimeout(() => {
-        messageBox.style.display = 'none';
-        orderPopup.classList.remove('active');
-      }, 5000);
+        if (response.ok) {
+          document.getElementById('orderMessage').textContent = 'Заказ успешно отправлен! Спасибо!';
+          document.getElementById('orderMessage').style.color = '#a3f7a3';
+          this.reset();
+          setTimeout(() => {
+            toggleOrder();
+            document.getElementById('orderMessage').style.display = 'none';
+          }, 3000);
+        } else {
+          throw new Error('Ошибка при отправке заказа.');
+        }
+      } catch (error) {
+        alert('Не удалось отправить заказ. Попробуйте позже.');
+        console.error(error);
+      }
     });
   </script>
 </body>
