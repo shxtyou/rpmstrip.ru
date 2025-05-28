@@ -38,13 +38,45 @@
       line-height: 1.6;
       color: #d8c7f9;
     }
-    code {
-      background-color: #4b2980;
-      padding: 2px 6px;
-      border-radius: 5px;
-      font-family: monospace;
-      font-size: 0.9rem;
-      color: #d1bfff;
+    ul li {
+      margin-bottom: 10px;
+    }
+    nav {
+      margin-bottom: 30px;
+    }
+    nav button {
+      margin-right: 15px;
+      font-weight: 600;
+      background-color: #5c33cc;
+      color: #f1e7ff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    nav button:hover {
+      background-color: #7e57ff;
+    }
+    .tab {
+      display: none;
+    }
+    .tab.active {
+      display: block;
+    }
+    .price-category {
+      background: rgba(54, 22, 90, 0.75);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(147, 70, 255, 0.5);
+      margin-bottom: 20px;
+    }
+    #priceDisplay {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-top: 15px;
+      color: #c4a7ff;
+      text-shadow: 0 0 4px #b38aff;
     }
     button, select, input {
       background-color: #5c33cc;
@@ -57,15 +89,14 @@
       transition: background-color 0.3s ease;
       margin-top: 12px;
       box-shadow: 0 0 8px rgba(92, 51, 204, 0.6);
+      width: 100%;
+      box-sizing: border-box;
     }
     button:hover, select:hover, input:hover {
       background-color: #7e57ff;
       box-shadow: 0 0 12px rgba(126, 87, 255, 0.9);
     }
     input[type="text"], input[type="datetime-local"], select {
-      width: 100%;
-      margin-top: 6px;
-      padding: 10px;
       background-color: #3e1f6e;
       color: #d8c7f9;
       border: 1px solid #7e57ff;
@@ -73,46 +104,15 @@
       font-size: 1rem;
       border-radius: 8px;
       transition: border-color 0.3s ease;
+      padding: 10px;
     }
     input[type="text"]:focus, input[type="datetime-local"]:focus, select:focus {
       border-color: #b38aff;
       outline: none;
       box-shadow: 0 0 10px #b38aff;
     }
-    nav {
-      margin-bottom: 30px;
-    }
-    nav button {
-      margin-right: 15px;
-      font-weight: 600;
-    }
-    .card {
-      background: rgba(54, 22, 90, 0.75);
-      border-radius: 18px;
-      padding: 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 0 15px rgba(147, 70, 255, 0.5);
-      transition: transform 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .tab {
-      display: none;
-    }
-    .tab.active {
-      display: block;
-    }
-    #priceDisplay {
-      font-weight: 700;
-      font-size: 1.2rem;
-      margin-top: 15px;
-      color: #c4a7ff;
-      text-shadow: 0 0 4px #b38aff;
-    }
-    ul li {
-      margin-bottom: 10px;
-    }
+
+    /* Корзина-иконка */
     .cart-icon {
       position: fixed;
       top: 20px;
@@ -124,6 +124,9 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .cart-icon:hover {
       background-color: #a68eff;
@@ -131,15 +134,61 @@
     }
     .cart-icon svg {
       fill: #fff;
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
     }
+
+    /* Модальное окно */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-content {
+      background: rgba(38, 16, 66, 0.95);
+      border-radius: 20px;
+      max-width: 500px;
+      width: 100%;
+      padding: 30px 30px 40px 30px;
+      box-shadow: 0 0 25px #b38aff;
+      position: relative;
+      color: #d8c7f9;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    .modal-content h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #b38aff;
+      text-shadow: 0 0 6px #a66cff;
+      text-align: center;
+    }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      font-size: 28px;
+      color: #d8c7f9;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .close-btn:hover {
+      color: #a68eff;
+    }
+
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(20px);}
       to {opacity: 1; transform: translateY(0);}
-    }
-    .card, nav, .container, h1 {
-      animation: fadeIn 0.7s ease forwards;
     }
   </style>
 </head>
@@ -150,11 +199,10 @@
     <nav>
       <button onclick="showSection('desc')">Описание</button>
       <button onclick="showSection('price')">Прайс</button>
-      <button onclick="showSection('order')">Оформление заказа</button>
       <button onclick="showSection('vip')">VIP Клиент</button>
     </nav>
 
-    <div id="desc" class="card tab active">
+    <div id="desc" class="tab active">
       <h2>Что на сайте</h2>
       <p><strong>Сутенёр: someteaze</strong> представляет первый сайт по стрип-клубу.<br />
         Связь:<br />
@@ -163,7 +211,7 @@
       </p>
     </div>
 
-    <div id="price" class="card tab">
+    <div id="price" class="tab">
       <h2>Категории услуг</h2>
       <div style="margin-bottom: 15px;">
         <button onclick="showPriceCategory('intim')">Интимные</button>
@@ -193,17 +241,40 @@
       </div>
     </div>
 
-    <div id="order" class="card tab">
-      <h2>📝 Оформить заказ</h2>
+    <div id="vip" class="tab">
+      <h2>👑 VIP Клиент — 200.000$</h2>
+      <p>Статус VIP клиента предоставляет следующие преимущества:</p>
+      <ul>
+        <li>Персональный менеджер 24/7</li>
+        <li>Приоритет в обслуживании</li>
+        <li>Скидка 10% на все услуги</li>
+        <li>VIP-бейдж в Discord и RPM</li>
+      </ul>
+      <p>Чтобы приобрести статус, оформите заказ с выбором "VIP Клиент" в форме заказа. После вам отпишут в личные сообщения.</p>
+    </div>
+  </div>
+
+  <!-- Иконка корзины -->
+  <div class="cart-icon" title="Оформить заказ" id="openOrderBtn" aria-label="Открыть форму заказа">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-12.824-3l1.58-9h14.484l-1.58 9h-14.484zm15.324-11h-17v2h1.647l3.65 20h12.606v-2h-11.955l-.735-4h13.822l1.395-8h-15.305z"/>
+    </svg>
+  </div>
+
+  <!-- Модальное окно с формой заказа -->
+  <div class="modal-overlay" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="modal-content">
+      <button class="close-btn" id="closeOrderBtn" aria-label="Закрыть форму заказа">&times;</button>
+      <h2 id="modalTitle">📝 Оформить заказ</h2>
       <form id="orderForm">
-        <label>Ник в Discord:</label>
-        <input type="text" name="discord" required />
+        <label for="discordInput">Ник в Discord:</label>
+        <input type="text" id="discordInput" name="discord" required />
 
-        <label>Ник на RPM:</label>
-        <input type="text" name="rpm" required />
+        <label for="rpmInput">Ник на RPM:</label>
+        <input type="text" id="rpmInput" name="rpm" required />
 
-        <label>Выберите услугу:</label>
-        <select name="service" id="service" required>
+        <label for="serviceSelect">Выберите услугу:</label>
+        <select id="serviceSelect" name="service" required>
           <option value="Стандарт (1 час)">Стандарт (1 час)</option>
           <option value="Минет">Минет</option>
           <option value="Женское доминирование">Женское доминирование</option>
@@ -217,55 +288,36 @@
           <option value="VIP Клиент">VIP Клиент</option>
         </select>
 
-        <label id="label-date">Когда:</label>
-        <input type="datetime-local" name="date" id="dateInput" required />
+        <label for="dateInput" id="labelDate">Когда:</label>
+        <input type="datetime-local" id="dateInput" name="date" required />
 
-        <label id="label-promo">Промокод (если есть):</label>
-        <input type="text" name="promo" id="promo" placeholder="Введите промокод" />
+        <label for="promoInput" id="labelPromo">Промокод (если есть):</label>
+        <input type="text" id="promoInput" name="promo" placeholder="Введите промокод" />
 
         <p id="priceDisplay"></p>
 
         <button type="submit">Подтвердить заказ</button>
       </form>
     </div>
-
-    <div id="vip" class="card tab">
-      <h2>👑 VIP Клиент — 200.000$</h2>
-      <p>Статус VIP клиента предоставляет следующие преимущества:</p>
-      <ul>
-        <li>Персональный менеджер 24/7</li>
-        <li>Приоритет в обслуживании</li>
-        <li>Скидка 10% на все услуги</li>
-        <li>VIP-бейдж в Discord и RPM</li>
-      </ul>
-      <p>Чтобы приобрести статус, оформите заказ с выбором "VIP Клиент" в форме заказа. После вам отпишут в личные сообщения.</p>
-    </div>
-  </div>
-
-  <div class="cart-icon" onclick="showSection('order')" title="Оформить заказ">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-12.824-3l1.58-9h14.484l-1.58 9h-14.484zm15.324-11h-17v2h1.647l3.65 20h12.606v-2h-11.955l-.735-4h13.822l1.395-8h-15.305z"/>
-    </svg>
   </div>
 
   <script>
-    const sections = document.querySelectorAll('.tab');
+    // Навигация по вкладкам
+    const tabs = document.querySelectorAll('.tab');
     function showSection(id) {
-      sections.forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+      tabs.forEach(t => t.classList.remove('active'));
+      const el = document.getElementById(id);
+      if(el) el.classList.add('active');
     }
-    showSection('desc');
 
-    function showPriceCategory(catId) {
-      const cats = document.querySelectorAll('.price-category');
-      cats.forEach(c => c.style.display = 'none');
-      const cat = document.getElementById(catId);
-      if(cat) cat.style.display = 'block';
+    // Показ/скрытие категорий прайса
+    function showPriceCategory(cat) {
+      document.getElementById('intim').style.display = (cat === 'intim') ? 'block' : 'none';
+      document.getElementById('extra').style.display = (cat === 'extra') ? 'block' : 'none';
     }
-    showPriceCategory('intim');
 
-    // Цены по услугам
-    const servicePrices = {
+    // Подсчет и показ цены в форме заказа
+    const priceMap = {
       "Стандарт (1 час)": 40000,
       "Минет": 25000,
       "Женское доминирование": 38000,
@@ -278,45 +330,54 @@
       "Фото-/видеосъёмка + сопровождение": 80000,
       "VIP Клиент": 200000
     };
-
-    const serviceSelect = document.getElementById('service');
+    const serviceSelect = document.getElementById('serviceSelect');
     const priceDisplay = document.getElementById('priceDisplay');
-    const dateInput = document.getElementById('dateInput');
-    const promoInput = document.getElementById('promo');
-    const labelDate = document.getElementById('label-date');
-    const labelPromo = document.getElementById('label-promo');
 
-    function updatePriceAndFields() {
-      const service = serviceSelect.value;
-      priceDisplay.textContent = `Цена: ${servicePrices[service]}$`;
-
-      // Для VIP Клиент убираем дату и промокод
-      if(service === "VIP Клиент") {
-        dateInput.style.display = 'none';
-        promoInput.style.display = 'none';
-        labelDate.style.display = 'none';
-        labelPromo.style.display = 'none';
-        dateInput.required = false;
-      } else {
-        dateInput.style.display = 'block';
-        promoInput.style.display = 'block';
-        labelDate.style.display = 'block';
-        labelPromo.style.display = 'block';
-        dateInput.required = true;
-      }
+    function updatePrice() {
+      const val = serviceSelect.value;
+      const price = priceMap[val] || 0;
+      priceDisplay.textContent = `Цена: ${price.toLocaleString('ru-RU')} $`;
     }
+    serviceSelect.addEventListener('change', updatePrice);
+    updatePrice();
 
-    serviceSelect.addEventListener('change', updatePriceAndFields);
+    // Модальное окно
+    const openOrderBtn = document.getElementById('openOrderBtn');
+    const orderModal = document.getElementById('orderModal');
+    const closeOrderBtn = document.getElementById('closeOrderBtn');
 
-    updatePriceAndFields();
+    openOrderBtn.addEventListener('click', () => {
+      orderModal.classList.add('active');
+      orderModal.focus();
+    });
 
-    // Отправка формы — здесь только заглушка, можно расширять
+    closeOrderBtn.addEventListener('click', () => {
+      orderModal.classList.remove('active');
+    });
+
+    // Закрыть модал по клику вне окна
+    orderModal.addEventListener('click', (e) => {
+      if(e.target === orderModal) {
+        orderModal.classList.remove('active');
+      }
+    });
+
+    // Отправка формы — пока просто alert с данными
     const orderForm = document.getElementById('orderForm');
     orderForm.addEventListener('submit', e => {
       e.preventDefault();
-      alert('Спасибо за заказ! В ближайшее время с вами свяжутся.');
+      const formData = new FormData(orderForm);
+      const discord = formData.get('discord');
+      const rpm = formData.get('rpm');
+      const service = formData.get('service');
+      const date = formData.get('date');
+      const promo = formData.get('promo');
+
+      alert(`Заказ оформлен!\nDiscord: ${discord}\nRPM: ${rpm}\nУслуга: ${service}\nКогда: ${date}\nПромокод: ${promo ? promo : 'нет'}`);
+
       orderForm.reset();
-      updatePriceAndFields();
+      updatePrice();
+      orderModal.classList.remove('active');
     });
   </script>
 </body>
