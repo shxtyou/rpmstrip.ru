@@ -8,11 +8,41 @@
   <style>
     body {
       background: linear-gradient(160deg, #1e0624, #39114d);
+      color: #e6d6f3;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #cba0ff;
+      text-align: center;
+    }
+    nav {
+      text-align: center;
+      margin: 20px 0;
+    }
+    nav a {
+      display: inline-block;
+      background-color: #65228f;
+      color: white;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+    nav a:hover {
+      background-color: #8030b8;
     }
     .card {
       background-color: #3a154a;
-      padding: 24px;
       border-radius: 20px;
+      padding: 24px;
+      margin: 20px 0;
       box-shadow: 0 4px 25px rgba(190, 134, 255, 0.3);
     }
     button, select, input {
@@ -20,48 +50,106 @@
       border-radius: 10px;
       font-size: 16px;
       padding: 14px;
+      color: white;
+      border: none;
+      margin-top: 10px;
+      width: 100%;
     }
     button:hover, select:hover, input:hover {
       background-color: #8030b8;
     }
-    .order-icon {
-      background-color: #8030b8;
-      font-size: 24px;
-      padding: 14px;
-      border-radius: 50%;
-    }
-    h1 {
-      font-size: 32px;
-    }
-    h2 {
-      font-size: 26px;
-    }
-    #serviceCards {
+    .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 16px;
     }
     @media (max-width: 600px) {
-      h1 {
-        font-size: 24px;
-      }
-      h2 {
-        font-size: 20px;
-      }
-      button, select, input {
-        font-size: 15px;
-        padding: 12px;
-      }
-      .card {
-        padding: 16px;
+      nav a {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Остальная часть HTML вставляется сюда -->
-  <script>
-    // Скрипты остаются прежними
-  </script>
+  <div class="container">
+    <h1>RPM Стрип-клуб</h1>
+
+    <nav>
+      <a href="#desc">Описание</a>
+      <a href="#price">Прайс</a>
+      <a href="#vip">VIP Клиент</a>
+      <a href="#order">Заказать</a>
+    </nav>
+
+    <div id="desc" class="card">
+      <h2>Что на сайте</h2>
+      <p><strong>Сутенёр: someteaze</strong> — первый цифровой стрип-клуб в RPM.<br>
+      Услуги включают танцы, ролевые игры, VIP-статус и многое другое.<br>
+      Discord: <code>wsometeazew</code> | Telegram: <code>@crips_someteaze</code></p>
+    </div>
+
+    <div id="price" class="card">
+      <h2>Категории услуг</h2>
+      <div class="grid">
+        <div class="card">Стандарт (1 час) — 40000</div>
+        <div class="card">Минет — 25000</div>
+        <div class="card">Женское доминирование — 38000</div>
+        <div class="card">Подчинение — 80000</div>
+        <div class="card">Шибари — 20000</div>
+        <div class="card">BDSM — 40000</div>
+        <div class="card">Приват-танец — 10000</div>
+        <div class="card">Ванна + массаж — 25000</div>
+        <div class="card">Ночь со мной — 100000</div>
+        <div class="card">Фото-/видеосъёмка — 80000</div>
+        <div class="card">VIP Клиент — 200000</div>
+      </div>
+    </div>
+
+    <div id="vip" class="card">
+      <h2>👑 VIP Клиент</h2>
+      <ul>
+        <li>Персональный менеджер</li>
+        <li>Приоритет обслуживания</li>
+        <li>10% скидка</li>
+        <li>VIP бейдж</li>
+      </ul>
+    </div>
+
+    <div id="order" class="card">
+      <h2>Оформление заказа</h2>
+      <form action="https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1" method="POST">
+        <label>Discord:</label>
+        <input type="text" name="discord" required />
+
+        <label>RPM Ник:</label>
+        <input type="text" name="rpm" required />
+
+        <label>Услуга:</label>
+        <select name="service" required>
+          <option value="Стандарт (1 час)">Стандарт (1 час)</option>
+          <option value="Минет">Минет</option>
+          <option value="Женское доминирование">Женское доминирование</option>
+          <option value="Подчинение">Подчинение</option>
+          <option value="Шибари">Шибари</option>
+          <option value="BDSM">BDSM</option>
+          <option value="Приват-танец">Приват-танец</option>
+          <option value="Ванна + массаж">Ванна + массаж</option>
+          <option value="Ночь со мной">Ночь со мной</option>
+          <option value="Фото-/видеосъёмка">Фото-/видеосъёмка</option>
+          <option value="VIP Клиент">VIP Клиент</option>
+        </select>
+
+        <label>Когда:</label>
+        <input type="datetime-local" name="date" required />
+
+        <label>Промокод:</label>
+        <input type="text" name="promo" value="YRA" />
+
+        <button type="submit">Отправить</button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
