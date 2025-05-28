@@ -16,11 +16,9 @@ document.querySelectorAll('.tab-link').forEach(link => {
     e.preventDefault();
     const tabId = link.getAttribute('data-tab');
 
-    // Снять active у всех вкладок и ссылок
     document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
     document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
 
-    // Показать выбранную вкладку и активировать ссылку
     document.getElementById(tabId).classList.add('active');
     link.classList.add('active');
   });
@@ -43,23 +41,59 @@ closeOrderBtn.addEventListener('click', () => {
   orderPopup.style.display = 'none';
 });
 
+// Открытие формы при клике на карточку
+document.querySelectorAll('.service-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const selectedService = card.dataset.service;
+    document.getElementById('serviceSelect').value = selectedService;
+    document.getElementById('order').style.display = 'block';
+    toggleFieldsVisibility(selectedService);
+  });
+});
+
+// Переключение полей при выборе VIP
+document.getElementById('serviceSelect').addEventListener('change', (e) => {
+  toggleFieldsVisibility(e.target.value);
+});
+
+function toggleFieldsVisibility(serviceName) {
+  const promoGroup = document.getElementById('promoGroup');
+  const orderDate = document.getElementById('orderDate');
+
+  if (serviceName.toLowerCase().includes('vip')) {
+    promoGroup.style.display = 'none';
+    orderDate.style.display = 'none';
+    orderDate.removeAttribute('required');
+  } else {
+    promoGroup.style.display = 'block';
+    orderDate.style.display = 'block';
+    orderDate.setAttribute('required', 'true');
+  }
+}
+
 // Отправка формы на Discord webhook
 const form = document.getElementById('orderForm');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const discordNick = form.discordNick.value.trim();
+  const rpmNick = form.rpmNick.value.trim();
   const service = form.serviceSelect.value;
+  const orderDate = form.orderDate.value;
   const promoCode = form.promoCode.value.trim();
 
-  if (!discordNick || !service) {
+  if (!discordNick || !rpmNick || !service) {
     alert('Пожалуйста, заполните все обязательные поля.');
     return;
   }
 
   const webhookURL = 'https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1';
 
-  const content = `Новый заказ от **${discordNick}**\nУслуга: **${service}**\nПромокод: ${promoCode || 'нет'}`;
+  let content = `Новый заказ от **${discordNick}** (РПМ: ${rpmNick})\nУслуга: **${service}**`;
+  if (!service.toLowerCase().includes('vip')) {
+    content += `\nДата: ${orderDate || 'не указана'}`;
+    content += `\nПромокод: ${promoCode || 'нет'}`;
+  }
 
   try {
     const res = await fetch(webhookURL, {
