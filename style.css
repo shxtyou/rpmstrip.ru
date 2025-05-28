@@ -1,19 +1,28 @@
 body {
-  background: linear-gradient(to right, #1e0624, #2e0e3b);
+  background: linear-gradient(135deg, #3c1c6e, #1e0624);
   color: #e6d6f3;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
 }
 
 .container {
   max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  background-color: rgba(46, 14, 59, 0.9);
+  border-radius: 16px;
+  padding: 25px 30px;
+  box-shadow: 0 0 20px rgba(182, 137, 240, 0.5);
+  animation: fadeIn 1s ease forwards;
 }
 
 h1, h2, h3 {
   color: #b689f0;
+  margin-top: 0;
 }
 
 .card {
@@ -21,7 +30,8 @@ h1, h2, h3 {
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 0 10px rgba(182, 137, 240, 0.3);
+  box-shadow: 0 0 15px rgba(182, 137, 240, 0.3);
+  animation: fadeInUp 0.8s ease forwards;
 }
 
 button, select, input {
@@ -32,46 +42,48 @@ button, select, input {
   border-radius: 6px;
   margin-top: 10px;
   font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
-input[type="text"],
-input[type="datetime-local"] {
+button:hover, select:hover, input:hover {
+  background-color: #6a3999;
+  cursor: pointer;
+}
+
+input[type='text'],
+input[type='datetime-local'],
+select {
   width: 100%;
   margin-top: 5px;
+  box-sizing: border-box;
+}
+
+nav {
+  margin-bottom: 20px;
 }
 
 nav button {
   margin-right: 10px;
+  font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+nav button:hover {
+  background-color: #6a3999;
 }
 
 .tab {
   display: none;
 }
 
-/* Иконка корзины */
-#cartIcon {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #4d2170;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 10px rgba(182, 137, 240, 0.5);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* Анимации */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 
-#cartIcon:hover {
-  background-color: #6e3aa7;
-}
-
-#cartIcon svg {
-  fill: #fff;
-  width: 24px;
-  height: 24px;
+@keyframes fadeInUp {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
 }
