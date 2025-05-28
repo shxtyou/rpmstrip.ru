@@ -1,182 +1,66 @@
-/* Общие стили */
 body {
-  background: linear-gradient(135deg, #1a0d2a 0%, #2e0f4b 100%);
-  color: #d8c7f9;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1e0624;
+  color: #e6d6f3;
+  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
-  min-height: 100vh;
+  padding: 40px 20px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 40px;
 }
 
-/* Контейнер */
 .container {
-  background: rgba(38, 16, 66, 0.8);
-  border-radius: 20px;
-  max-width: 850px;
-  width: 90%;
-  padding: 30px 40px;
-  box-shadow: 0 8px 25px rgba(147, 70, 255, 0.7);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(147, 70, 255, 0.3);
-}
-
-/* Заголовки */
-h1, h2, h3 {
-  color: #b38aff;
-  text-shadow: 0 0 6px #a66cff;
-  margin-bottom: 15px;
-}
-
-/* Текст */
-p, ul {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #d8c7f9;
-}
-
-/* Ссылки и коды */
-code {
-  background-color: #4b2980;
-  padding: 2px 6px;
-  border-radius: 5px;
-  font-family: monospace;
-  font-size: 0.9rem;
-  color: #d1bfff;
-}
-
-/* Кнопки и формы */
-button, select, input {
-  background-color: #5c33cc;
-  color: #f1e7ff;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 12px;
-  box-shadow: 0 0 8px rgba(92, 51, 204, 0.6);
-}
-
-button:hover, select:hover, input:hover {
-  background-color: #7e57ff;
-  box-shadow: 0 0 12px rgba(126, 87, 255, 0.9);
-}
-
-/* Поля ввода */
-input[type="text"], input[type="datetime-local"], select {
-  width: 100%;
-  margin-top: 6px;
-  padding: 10px;
-  background-color: #3e1f6e;
-  color: #d8c7f9;
-  border: 1px solid #7e57ff;
-  box-shadow: inset 0 0 6px #5c33cc;
-  font-size: 1rem;
-  border-radius: 8px;
-  transition: border-color 0.3s ease;
-}
-
-input[type="text"]:focus, input[type="datetime-local"]:focus, select:focus {
-  border-color: #b38aff;
-  outline: none;
-  box-shadow: 0 0 10px #b38aff;
-}
-
-/* Навигация */
-nav {
-  margin-bottom: 30px;
-}
-
-nav button {
-  margin-right: 15px;
-  font-weight: 600;
-}
-
-/* Карточки */
-.card {
-  background: rgba(54, 22, 90, 0.75);
-  border-radius: 18px;
-  padding: 25px;
-  margin-bottom: 25px;
-  box-shadow: 0 0 15px rgba(147, 70, 255, 0.5);
-  transition: transform 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-/* Скрытие вкладок */
-.tab {
-  display: none;
-}
-
-/* Отображение активной вкладки */
-.tab.active {
-  display: block;
-}
-
-/* Цена */
-#priceDisplay {
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin-top: 15px;
-  color: #c4a7ff;
-  text-shadow: 0 0 4px #b38aff;
-}
-
-/* Список */
-ul li {
-  margin-bottom: 10px;
-}
-
-/* Стилизуем alert */
-.alert {
-  background-color: #7e57ff;
-  padding: 15px 25px;
+  background: #2e0e3b;
   border-radius: 12px;
-  color: #fff;
-  font-weight: 700;
-  box-shadow: 0 0 10px #b38aff;
-  text-align: center;
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(182, 137, 240, 0.7);
 }
 
-/* Иконка корзины */
-.cart-icon {
-  position: fixed;
-  top: 20px;
-  right: 30px;
+h1 {
+  text-align: center;
+  color: #b689f0;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background-color: #4d2170;
+  color: #fff;
+  font-size: 1rem;
+}
+
+input::placeholder {
+  color: #c2a8e8;
+}
+
+.btn-submit {
   background-color: #7e57ff;
-  padding: 15px;
-  border-radius: 50%;
-  box-shadow: 0 0 12px #b38aff;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  z-index: 1000;
+  margin-top: 10px;
 }
 
-.cart-icon:hover {
-  background-color: #a68eff;
-  box-shadow: 0 0 18px #d2b9ff;
-}
-
-.cart-icon svg {
-  fill: #fff;
-  width: 24px;
-  height: 24px;
-}
-
-/* Анимация плавного появления */
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
-.card, nav, .container, h1 {
-  animation: fadeIn 0.7s ease forwards;
+.btn-submit:hover {
+  background-color: #6243c1;
 }
