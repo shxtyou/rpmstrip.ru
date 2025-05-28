@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -18,9 +19,9 @@
       margin: 0 auto;
       padding: 20px;
     }
-    h1, h2, h3 {
-      color: #cba0ff;
+    h1, h2 {
       text-align: center;
+      color: #cba0ff;
     }
     nav {
       text-align: center;
@@ -55,7 +56,7 @@
       margin-top: 10px;
       width: 100%;
     }
-    button:hover, select:hover, input:hover {
+    button:hover {
       background-color: #8030b8;
     }
     .grid {
@@ -63,19 +64,11 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 16px;
     }
-    @media (max-width: 600px) {
-      nav a {
-        display: block;
-        width: 100%;
-        margin: 10px 0;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>RPM Стрип-клуб</h1>
-
     <nav>
       <a href="#desc">Описание</a>
       <a href="#price">Прайс</a>
@@ -86,8 +79,9 @@
     <div id="desc" class="card">
       <h2>Что на сайте</h2>
       <p><strong>Сутенёр: someteaze</strong> — первый цифровой стрип-клуб в RPM.<br>
-      Услуги включают танцы, ролевые игры, VIP-статус и многое другое.<br>
-      Discord: <code>wsometeazew</code> | Telegram: <code>@crips_someteaze</code></p>
+        Услуги включают танцы, ролевые игры, VIP-статус и многое другое.<br>
+        Discord: <code>wsometeazew</code> | Telegram: <code>@crips_someteaze</code>
+      </p>
     </div>
 
     <div id="price" class="card">
@@ -119,7 +113,7 @@
 
     <div id="order" class="card">
       <h2>Оформление заказа</h2>
-      <form action="https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1" method="POST">
+      <form id="orderForm">
         <label>Discord:</label>
         <input type="text" name="discord" required />
 
@@ -151,5 +145,24 @@
       </form>
     </div>
   </div>
+
+  <script>
+    document.getElementById('orderForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        content: `**Новый заказ!**\nDiscord: ${form.discord.value}\nRPM: ${form.rpm.value}\nУслуга: ${form.service.value}\nДата: ${form.date.value}\nПромокод: ${form.promo.value}`
+      };
+
+      await fetch("https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      alert("Заказ отправлен!");
+      form.reset();
+    });
+  </script>
 </body>
 </html>
