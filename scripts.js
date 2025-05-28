@@ -30,11 +30,7 @@ const orderPopup = document.getElementById('order');
 const closeOrderBtn = document.getElementById('closeOrder');
 
 orderToggle.addEventListener('click', () => {
-  if (orderPopup.style.display === 'block') {
-    orderPopup.style.display = 'none';
-  } else {
-    orderPopup.style.display = 'block';
-  }
+  orderPopup.style.display = orderPopup.style.display === 'block' ? 'none' : 'block';
 });
 
 closeOrderBtn.addEventListener('click', () => {
@@ -45,15 +41,12 @@ closeOrderBtn.addEventListener('click', () => {
 document.querySelectorAll('.service-card').forEach(card => {
   card.addEventListener('click', () => {
     const selectedService = card.dataset.service;
-    document.getElementById('serviceSelect').value = selectedService;
+    document.getElementById('selectedService').value = selectedService;
+    document.getElementById('selectedServiceDisplay').value = selectedService;
+
     document.getElementById('order').style.display = 'block';
     toggleFieldsVisibility(selectedService);
   });
-});
-
-// Переключение полей при выборе VIP
-document.getElementById('serviceSelect').addEventListener('change', (e) => {
-  toggleFieldsVisibility(e.target.value);
 });
 
 function toggleFieldsVisibility(serviceName) {
@@ -78,7 +71,7 @@ form.addEventListener('submit', async (e) => {
 
   const discordNick = form.discordNick.value.trim();
   const rpmNick = form.rpmNick.value.trim();
-  const service = form.serviceSelect.value;
+  const service = form.selectedService.value.trim();
   const orderDate = form.orderDate.value;
   const promoCode = form.promoCode.value.trim();
 
