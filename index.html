@@ -1,70 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RPM Стрип-клуб</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    body {
-      background: linear-gradient(160deg, #1e0624, #39114d);
-      color: #e6d6f3;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2 {
-      text-align: center;
-      color: #cba0ff;
-    }
-    nav {
-      text-align: center;
-      margin: 20px 0;
-    }
-    nav a {
-      display: inline-block;
-      background-color: #65228f;
-      color: white;
-      padding: 10px 20px;
-      margin: 5px;
-      border-radius: 10px;
-      text-decoration: none;
-    }
-    nav a:hover {
-      background-color: #8030b8;
-    }
-    .card {
-      background-color: #3a154a;
-      border-radius: 20px;
-      padding: 24px;
-      margin: 20px 0;
-      box-shadow: 0 4px 25px rgba(190, 134, 255, 0.3);
-    }
-    button, select, input {
-      background-color: #65228f;
-      border-radius: 10px;
-      font-size: 16px;
-      padding: 14px;
-      color: white;
-      border: none;
-      margin-top: 10px;
-      width: 100%;
-    }
-    button:hover {
-      background-color: #8030b8;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
@@ -121,25 +61,27 @@
         <input type="text" name="rpm" required />
 
         <label>Услуга:</label>
-        <select name="service" required>
-          <option value="Стандарт (1 час)">Стандарт (1 час)</option>
-          <option value="Минет">Минет</option>
-          <option value="Женское доминирование">Женское доминирование</option>
-          <option value="Подчинение">Подчинение</option>
-          <option value="Шибари">Шибари</option>
-          <option value="BDSM">BDSM</option>
-          <option value="Приват-танец">Приват-танец</option>
-          <option value="Ванна + массаж">Ванна + массаж</option>
-          <option value="Ночь со мной">Ночь со мной</option>
-          <option value="Фото-/видеосъёмка">Фото-/видеосъёмка</option>
-          <option value="VIP Клиент">VIP Клиент</option>
+        <select name="service" id="serviceSelect" required>
+          <option value="Стандарт (1 час)" data-price="40000">Стандарт (1 час)</option>
+          <option value="Минет" data-price="25000">Минет</option>
+          <option value="Женское доминирование" data-price="38000">Женское доминирование</option>
+          <option value="Подчинение" data-price="80000">Подчинение</option>
+          <option value="Шибари" data-price="20000">Шибари</option>
+          <option value="BDSM" data-price="40000">BDSM</option>
+          <option value="Приват-танец" data-price="10000">Приват-танец</option>
+          <option value="Ванна + массаж" data-price="25000">Ванна + массаж</option>
+          <option value="Ночь со мной" data-price="100000">Ночь со мной</option>
+          <option value="Фото-/видеосъёмка" data-price="80000">Фото-/видеосъёмка</option>
+          <option value="VIP Клиент" data-price="200000">VIP Клиент</option>
         </select>
 
         <label>Когда:</label>
         <input type="datetime-local" name="date" required />
 
         <label>Промокод:</label>
-        <input type="text" name="promo" value="YRA" />
+        <input type="text" name="promo" id="promoCode" value="YRA" />
+
+        <p><strong>Итоговая цена: <span id="totalPrice">0</span></strong></p>
 
         <button type="submit">Отправить</button>
       </form>
@@ -147,11 +89,28 @@
   </div>
 
   <script>
+    const serviceSelect = document.getElementById('serviceSelect');
+    const promoCode = document.getElementById('promoCode');
+    const totalPriceEl = document.getElementById('totalPrice');
+
+    function updatePrice() {
+      const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+      let price = parseInt(selectedOption.getAttribute('data-price')) || 0;
+      if (promoCode.value.trim().toUpperCase() === 'YRA') {
+        price = Math.round(price * 0.95);
+      }
+      totalPriceEl.textContent = price + ' ₽';
+    }
+
+    serviceSelect.addEventListener('change', updatePrice);
+    promoCode.addEventListener('input', updatePrice);
+    window.addEventListener('load', updatePrice);
+
     document.getElementById('orderForm').addEventListener('submit', async function (e) {
       e.preventDefault();
       const form = e.target;
       const data = {
-        content: `**Новый заказ!**\nDiscord: ${form.discord.value}\nRPM: ${form.rpm.value}\nУслуга: ${form.service.value}\nДата: ${form.date.value}\nПромокод: ${form.promo.value}`
+        content: `**Новый заказ!**\\nDiscord: ${form.discord.value}\\nRPM: ${form.rpm.value}\\nУслуга: ${form.service.value}\\nДата: ${form.date.value}\\nПромокод: ${form.promo.value}`
       };
 
       await fetch("https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1", {
@@ -162,6 +121,7 @@
 
       alert("Заказ отправлен!");
       form.reset();
+      updatePrice();
     });
   </script>
 </body>
