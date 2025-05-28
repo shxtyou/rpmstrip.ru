@@ -60,6 +60,7 @@
         <div class="service-card" data-service="Совместная ванна + массаж">Совместная ванна + массаж — 25,000$</div>
         <div class="service-card" data-service="Ночь со мной">Ночь со мной (до 8 часов) — 100,000$</div>
         <div class="service-card" data-service="Фото-/видеосъёмка + сопровождение">Фото-/видеосъёмка + сопровождение — 80,000$</div>
+        <div class="service-card" data-service="VIP Клиент">VIP Клиент</div>
       </div>
     </div>
 
@@ -86,11 +87,10 @@
       <label for="rpmNick">Ваш РПМ-ник:</label>
       <input type="text" id="rpmNick" name="rpmNick" required />
 
-      <label for="serviceSelect">Выберите услугу:</label>
-      <select id="serviceSelect" name="serviceSelect" required>
-        <option value="" disabled selected>-- Выберите услугу --</option>
-        <!-- те же опции, что и ранее -->
-      </select>
+      <label for="selectedServiceDisplay">Выбранная услуга:</label>
+      <input type="text" id="selectedServiceDisplay" readonly />
+
+      <input type="hidden" id="selectedService" name="service" required />
 
       <label for="orderDate">Дата проведения услуги:</label>
       <input type="date" id="orderDate" name="orderDate" required />
