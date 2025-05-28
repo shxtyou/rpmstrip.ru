@@ -5,64 +5,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RPM Стрип-клуб</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="top-bar">
-    <h1>RPM Стрип-клуб</h1>
-    <button class="cart-btn" onclick="showSection('order')">🛒</button>
-  </div>
+  <div class="order-icon" onclick="showSection('order')">🛒</div>
   <div class="container">
+    <h1>RPM Стрип-клуб</h1>
     <nav>
       <button onclick="showSection('desc')">Описание</button>
       <button onclick="showSection('price')">Прайс</button>
       <button onclick="showSection('vip')">VIP Клиент</button>
     </nav>
-
-    <div id="desc" class="tab card">
-      <h2>О нас</h2>
-      <p><strong>someteaze</strong> представляет первый интерактивный сайт по RPM-стрип-клубу.</p>
+    <div id="desc" class="card tab">
+      <h2>Что на сайте</h2>
+      <p><strong>Сутенёр: someteaze</strong> — первый цифровой стрип-клуб в RPM.<br>
+      Контакты:<br>Discord: <code>wsometeazew</code><br>Telegram: <code>@crips_someteaze</code></p>
     </div>
-
-    <div id="price" class="tab card">
-      <h2>Услуги</h2>
-      <button onclick="toggleTab('intim')">Интим</button>
-      <button onclick="toggleTab('extra')">Дополнительно</button>
-
-      <div id="intim" class="sub-tab">
-        <ul>
-          <li>Стандарт (1 час) — 40000</li>
-          <li>Минет — 25000</li>
-          <li>Женское доминирование — 38000</li>
-          <li>Подчинение — 80000</li>
-          <li>Шибари — 20000</li>
-          <li>BDSM — 40000</li>
-        </ul>
-      </div>
-
-      <div id="extra" class="sub-tab">
-        <ul>
-          <li>Стриптиз — 10000</li>
-          <li>Ванна + массаж — 25000</li>
-          <li>Ночь — 100000</li>
-          <li>Фото/видео сопровождение — 80000</li>
-        </ul>
-      </div>
-    </div>
-
-    <div id="vip" class="tab card">
-      <h2>VIP Клиент</h2>
-      <p>Стоимость: 200000$</p>
+    <div id="price" class="card tab">
+      <h2>Категории услуг</h2>
       <ul>
-        <li>Менеджер 24/7</li>
-        <li>Приоритет</li>
-        <li>Скидка 10%</li>
-        <li>VIP-бейдж</li>
+        <li>Стандарт (1 час) — 40000</li>
+        <li>Минет — 25000</li>
+        <li>Женское доминирование — 38000</li>
+        <li>Подчинение — 80000</li>
+        <li>Шибари — 20000</li>
+        <li>BDSM — 40000</li>
+        <li>Приват-танец — 10000</li>
+        <li>Ванна + массаж — 25000</li>
+        <li>Ночь со мной — 100000</li>
+        <li>Фото-/видеосъёмка — 80000</li>
+        <li>VIP Клиент — 200000</li>
       </ul>
     </div>
-
-    <div id="order" class="tab card">
+    <div id="vip" class="card tab">
+      <h2>👑 VIP Клиент</h2>
+      <p>VIP-статус предоставляет:</p>
+      <ul>
+        <li>Персональный менеджер</li>
+        <li>Приоритет обслуживания</li>
+        <li>10% скидка</li>
+        <li>VIP бейдж</li>
+      </ul>
+    </div>
+    <div id="order" class="card tab">
       <h2>Оформление заказа</h2>
       <form id="orderForm">
         <label>Discord:</label>
@@ -72,98 +57,42 @@
         <label>Услуга:</label>
         <select name="service" id="service">
           <option value="Стандарт (1 час)">Стандарт (1 час)</option>
-          <option value="Минет">Минет</option>
-          <option value="Женское доминирование">Женское доминирование</option>
-          <option value="Подчинение">Подчинение</option>
-          <option value="Шибари">Шибари</option>
-          <option value="BDSM">BDSM</option>
-          <option value="Стриптиз">Стриптиз</option>
-          <option value="Ванна + массаж">Ванна + массаж</option>
-          <option value="Ночь">Ночь</option>
-          <option value="Фото/видео сопровождение">Фото/видео сопровождение</option>
           <option value="VIP Клиент">VIP Клиент</option>
         </select>
-        <div id="timePromoFields">
-          <label>Время:</label>
-          <input type="datetime-local" name="date" />
-          <label>Промокод:</label>
-          <input type="text" name="promo" id="promo" />
+        <div id="dateContainer">
+          <label>Когда:</label>
+          <input type="datetime-local" name="date" required />
         </div>
-        <p id="priceDisplay"></p>
+        <div id="promoContainer">
+          <label>Промокод:</label>
+          <input type="text" name="promo" />
+        </div>
         <button type="submit">Отправить</button>
       </form>
     </div>
   </div>
+
   <script>
-    const sections = document.querySelectorAll('.tab');
-    const servicePrices = {
-      "Стандарт (1 час)": 40000,
-      "Минет": 25000,
-      "Женское доминирование": 38000,
-      "Подчинение": 80000,
-      "Шибари": 20000,
-      "BDSM": 40000,
-      "Стриптиз": 10000,
-      "Ванна + массаж": 25000,
-      "Ночь": 100000,
-      "Фото/видео сопровождение": 80000,
-      "VIP Клиент": 200000
-    };
+    const tabs = document.querySelectorAll('.tab');
+    const serviceSelect = document.getElementById('service');
+    const dateContainer = document.getElementById('dateContainer');
+    const promoContainer = document.getElementById('promoContainer');
 
     function showSection(id) {
-      sections.forEach(s => s.style.display = 'none');
+      tabs.forEach(tab => tab.style.display = 'none');
       document.getElementById(id).style.display = 'block';
     }
-
-    function toggleTab(id) {
-      document.querySelectorAll('.sub-tab').forEach(t => t.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
-    }
-
-    document.getElementById('service').addEventListener('change', () => {
-      const selected = document.getElementById('service').value;
-      const timePromo = document.getElementById('timePromoFields');
-      timePromo.style.display = (selected === "VIP Клиент") ? 'none' : 'block';
-
-      const base = servicePrices[selected] || 0;
-      const promo = document.getElementById('promo').value.trim();
-      let price = base;
-      let note = '';
-      if (promo === "ONYX-2025-ELITE-XR") {
-        price = base * 0.9;
-        note = " (-10% по промокоду)";
-      }
-      document.getElementById('priceDisplay').textContent = `Цена: ${price.toLocaleString()}$${note}`;
-    });
-
-    document.getElementById('orderForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = new FormData(e.target);
-      const service = data.get("service");
-      const base = servicePrices[service] || 0;
-      let price = base;
-      if (data.get("promo").trim() === "ONYX-2025-ELITE-XR") {
-        price = Math.floor(base * 0.9);
-      }
-
-      const content = `🔔 **Новый заказ**
-<@&1371644238349205535>
-**Discord:** ${data.get("discord")}
-**RPM:** ${data.get("rpm")}
-**Услуга:** ${service}
-**Дата:** ${data.get("date") || "Не указана"}
-**Цена:** ${price.toLocaleString()}$`;
-
-      await fetch("https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content })
-      });
-
-      alert("Заказ отправлен!");
-    });
-
     showSection('desc');
+
+    serviceSelect.addEventListener('change', () => {
+      if (serviceSelect.value === 'VIP Клиент') {
+        dateContainer.style.display = 'none';
+        promoContainer.style.display = 'none';
+      } else {
+        dateContainer.style.display = 'block';
+        promoContainer.style.display = 'block';
+      }
+    });
   </script>
 </body>
 </html>
