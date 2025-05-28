@@ -1,61 +1,27 @@
 body {
-  background: linear-gradient(135deg, #3c1c6e, #1e0624);
+  background: linear-gradient(135deg, #33004d 0%, #1e0624 100%);
   color: #e6d6f3;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 40px;
 }
 
 .container {
   max-width: 800px;
-  background-color: rgba(46, 14, 59, 0.9);
+  margin: 30px auto;
+  padding: 20px;
+  background: rgba(50, 18, 65, 0.85);
   border-radius: 16px;
-  padding: 25px 30px;
-  box-shadow: 0 0 20px rgba(182, 137, 240, 0.5);
-  animation: fadeIn 1s ease forwards;
+  box-shadow: 0 0 25px rgba(182, 137, 240, 0.6);
+  animation: fadeInScale 0.7s ease forwards;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   color: #b689f0;
   margin-top: 0;
-}
-
-.card {
-  background-color: #2e0e3b;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 15px rgba(182, 137, 240, 0.3);
-  animation: fadeInUp 0.8s ease forwards;
-}
-
-button, select, input {
-  background-color: #4d2170;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 6px;
-  margin-top: 10px;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-button:hover, select:hover, input:hover {
-  background-color: #6a3999;
-  cursor: pointer;
-}
-
-input[type='text'],
-input[type='datetime-local'],
-select {
-  width: 100%;
-  margin-top: 5px;
-  box-sizing: border-box;
 }
 
 nav {
@@ -63,27 +29,99 @@ nav {
 }
 
 nav button {
+  background-color: #4d2170;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
   margin-right: 10px;
-  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
+  font-weight: 600;
 }
 
 nav button:hover {
-  background-color: #6a3999;
+  background-color: #6e359d;
+}
+
+.card {
+  background-color: #2e0e3b;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(182, 137, 240, 0.3);
+}
+
+input[type='text'],
+input[type='datetime-local'],
+select {
+  background-color: #4d2170;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+button[type='submit'] {
+  margin-top: 15px;
+  background-color: #6e359d;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
+}
+
+button[type='submit']:hover {
+  background-color: #8746c7;
 }
 
 .tab {
   display: none;
 }
 
-/* Анимации */
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
+.welcome-message {
+  text-align: center;
+  background: rgba(107, 44, 129, 0.8);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 15px rgba(182, 137, 240, 0.5);
+  animation: fadeInDown 1s ease forwards;
 }
 
-@keyframes fadeInUp {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
+.welcome-message h2 {
+  margin-bottom: 10px;
+  color: #d6b8ff;
+}
+
+.welcome-message p {
+  font-size: 1.1rem;
+  color: #eee;
+  margin: 5px 0;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
