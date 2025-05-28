@@ -20,17 +20,18 @@
       <button onclick="showTab('vip')">VIP Клиент</button>
     </nav>
 
-    <div id="desc" class="card active">
+    <div id="desc" class="card">
       <h2>Что на сайте</h2>
       <p>
-        <strong>RPM Стрип-клуб</strong> — это цифровое пространство развлечений в RP мире, где можно заказать
-        приват-танцы, ролевые сценарии, BDSM-практики и элитные VIP-услуги. Мы предлагаем не просто интерактивные услуги,
-        а атмосферу ночного клуба, где каждый пользователь может стать участником уникального ролевого опыта. Все заказы
-        оформляются прямо через сайт. <br /><br />
-        Связь с организатором:<br />
-        Discord: <code>wsometeazew</code><br />
-        Telegram: <code>@crips_someteaze</code><br />
-        Присоединяйтесь и получите 5% скидку с промокодом <strong>YRA</strong>!
+        <strong>RPM Стрип-клуб</strong> — это уникальное цифровое пространство развлечений в мире RP, где границы реальности размываются,
+        а фантазии становятся реальностью. У нас вы можете заказать приватные танцы, ролевые сценарии, BDSM-практики и эксклюзивные VIP-услуги,
+        которые подарят неповторимые эмоции и яркие впечатления.<br><br>
+        Атмосфера нашего клуба построена на доверии, безопасности и полном погружении в роль. Здесь каждый сможет найти себе развлечение по душе:
+        от нежных и чувственных моментов до откровенных и дерзких сценариев.<br><br>
+        Все заказы оформляются через удобный интерфейс сайта. Для связи с организатором используйте:<br>
+        Discord: <code>wsometeazew</code><br>
+        Telegram: <code>@crips_someteaze</code><br><br>
+        Не забудьте применить промокод <strong>YRA</strong> и получите 5% скидку на первый заказ!
       </p>
     </div>
 
@@ -67,16 +68,22 @@
 
   <div id="order" class="card">
     <h2>Оформление заказа</h2>
-    <!-- Форма заказа сюда -->
+    <!-- Здесь можно добавить форму заказа -->
   </div>
 
   <script>
     function showTab(id) {
-      document.querySelectorAll('.card').forEach(tab => {
-        if (!['order'].includes(tab.id)) tab.classList.remove('active');
+      // Скрыть все карточки, кроме заказа
+      document.querySelectorAll('.card').forEach(card => {
+        if (card.id !== 'order') {
+          card.classList.remove('active');
+        }
       });
-      const target = document.getElementById(id);
-      if (target && target.id !== 'order') target.classList.add('active');
+      // Показать нужную вкладку
+      const tab = document.getElementById(id);
+      if (tab) {
+        tab.classList.add('active');
+      }
     }
 
     function toggleOrder() {
@@ -87,8 +94,11 @@
     window.addEventListener('load', () => {
       const promoDeadline = new Date("2025-05-29T16:00:00");
       if (new Date() < promoDeadline) {
-        document.getElementById("promoPopup").style.display = "block";
-        setTimeout(() => document.getElementById("promoPopup").style.display = "none", 10000);
+        const promoPopup = document.getElementById("promoPopup");
+        promoPopup.style.display = "block";
+        setTimeout(() => {
+          promoPopup.style.display = "none";
+        }, 10000);
       }
     });
   </script>
