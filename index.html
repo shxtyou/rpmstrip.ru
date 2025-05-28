@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RPM Strip — Услуги Onyx</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: linear-gradient(to bottom right, #000000, #2e0249);
+      color: #f3f3f3;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+    h1, h2 {
+      color: #c084fc;
+    }
+    .card {
+      background-color: #1a1a1a;
+      border: 1px solid #7c3aed;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 10px rgba(124, 58, 237, 0.2);
+    }
+    input, select {
+      width: 100%;
+      padding: 0.6rem;
+      margin: 0.5rem 0;
+      background: #2c2c2c;
+      border: 1px solid #7c3aed;
+      border-radius: 5px;
+      color: white;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #7c3aed;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #5b21b6;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+      h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>RPM Strip — Услуги Onyx</h1>
+
+    <div class="card">
+      <h2>Что в этом сайте</h2>
+      <p>Вы можете заказать эксклюзивные услуги от Оникс в рамках ролевой игры RPM. Строго конфиденциально и премиум-качество.</p>
+    </div>
+
+    <div class="card">
+      <h2>✨ PriceList by Оникс ✨</h2>
+
+      <h3>💋 Интимные услуги</h3>
+      <ul>
+        <li><strong>Стандарт (1 час)</strong> — <strong>40,000$</strong></li>
+        <li><strong>Минет</strong> — <strong>25,000$</strong></li>
+        <li><strong>Жёсткое доминирование</strong> <em>(Genose dominazione)</em> — <strong>38,000$</strong></li>
+        <li><strong>Подчинение</strong> <em>(Submissive / Podcimene)</em> — <strong>80,000$</strong></li>
+        <li><strong>Шибари</strong> <em>(Shibari)</em> — <strong>20,000$</strong></li>
+        <li><strong>BDSM</strong> — <strong>40,000$</strong></li>
+      </ul>
+
+      <h3>💃 Дополнительные услуги</h3>
+      <ul>
+        <li><strong>Стриптиз / Приват-танец</strong> — <strong>10,000$</strong></li>
+        <li><strong>Совместная ванна + массаж</strong> — <strong>25,000$</strong></li>
+        <li><strong>Ночь со мной (до 8 часов)</strong> — <strong>100,000$</strong></li>
+        <li><strong>Фото-/видеосъёмка + сопровождение</strong> — <strong>80,000$</strong></li>
+      </ul>
+
+      <p>💎 <em>Индивидуальный подход. Полная конфиденциальность. Люкс-уровень обслуживания.</em></p>
+      <p>📍 <em>Детали обсуждаются лично, строго по предварительной договорённости.</em></p>
+    </div>
+
+    <div class="card">
+      <h2>Форма заказа</h2>
+      <input type="text" id="discord" placeholder="Ваш Discord (например: name#0001)" />
+      <input type="text" id="rpmNick" placeholder="Ник на RPM" />
+
+      <select id="service">
+        <option value="">Выберите услугу</option>
+        <option value="Стандарт (1 час)">Стандарт (1 час) — 40,000$</option>
+        <option value="Минет">Минет — 25,000$</option>
+        <option value="Жёсткое доминирование">Жёсткое доминирование — 38,000$</option>
+        <option value="Подчинение">Подчинение — 80,000$</option>
+        <option value="Шибари">Шибари — 20,000$</option>
+        <option value="BDSM">BDSM — 40,000$</option>
+        <option value="Стриптиз / Приват-танец">Стриптиз / Приват-танец — 10,000$</option>
+        <option value="Совместная ванна + массаж">Совместная ванна + массаж — 25,000$</option>
+        <option value="Ночь со мной">Ночь со мной (до 8 часов) — 100,000$</option>
+        <option value="Фото-/видеосъёмка + сопровождение">Фото-/видеосъёмка + сопровождение — 80,000$</option>
+      </select>
+
+      <input type="text" id="date" placeholder="Когда (например: 29 мая, 17:00)" />
+      <button onclick="confirmOrder()">Подтвердить заказ</button>
+    </div>
+  </div>
+
+  <script>
+    let confirmedOnce = false;
+
+    function confirmOrder() {
+      if (!confirmedOnce) {
+        alert("Нажмите ещё раз для подтверждения отправки заказа.");
+        confirmedOnce = true;
+        return;
+      }
+
+      const discord = document.getElementById("discord").value;
+      const rpmNick = document.getElementById("rpmNick").value;
+      const service = document.getElementById("service").value;
+      const date = document.getElementById("date").value;
+
+      if (!discord || !rpmNick || !service || !date) {
+        alert("Пожалуйста, заполните все поля.");
+        confirmedOnce = false;
+        return;
+      }
+
+      const content = `💌 **Новый заказ от клиента**\n` +
+        `**Discord:** ${discord}\n` +
+        `**RPM Ник:** ${rpmNick}\n` +
+        `**Услуга:** ${service}\n` +
+        `**Дата:** ${date}`;
+
+      fetch("https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content }),
+      })
+      .then(() => {
+        alert("✅ Заказ отправлен!");
+        confirmedOnce = false;
+        document.getElementById("discord").value = "";
+        document.getElementById("rpmNick").value = "";
+        document.getElementById("service").value = "";
+        document.getElementById("date").value = "";
+      })
+      .catch(() => {
+        alert("❌ Ошибка при отправке. Попробуйте позже.");
+      });
+    }
+  </script>
+</body>
+</html>
