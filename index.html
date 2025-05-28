@@ -4,277 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RPM Стрип-клуб</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <style>
-    body {
-      background: linear-gradient(135deg, #1a0d2a 0%, #2e0f4b 100%);
-      color: #d8c7f9;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: 40px;
-    }
-    .container {
-      background: rgba(38, 16, 66, 0.8);
-      border-radius: 20px;
-      max-width: 850px;
-      width: 90%;
-      padding: 30px 40px;
-      box-shadow: 0 8px 25px rgba(147, 70, 255, 0.7);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(147, 70, 255, 0.3);
-    }
-    h1, h2, h3 {
-      color: #b38aff;
-      text-shadow: 0 0 6px #a66cff;
-      margin-bottom: 15px;
-    }
-    p, ul {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #d8c7f9;
-    }
-    ul li {
-      margin-bottom: 10px;
-    }
-    nav {
-      margin-bottom: 30px;
-    }
-    nav button {
-      margin-right: 15px;
-      font-weight: 600;
-      background-color: #5c33cc;
-      color: #f1e7ff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    nav button:hover {
-      background-color: #7e57ff;
-    }
-    .tab {
-      display: none;
-    }
-    .tab.active {
-      display: block;
-    }
-    .price-category {
-      background: rgba(54, 22, 90, 0.75);
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 0 15px rgba(147, 70, 255, 0.5);
-      margin-bottom: 20px;
-    }
-    #priceDisplay {
-      font-weight: 700;
-      font-size: 1.2rem;
-      margin-top: 15px;
-      color: #c4a7ff;
-      text-shadow: 0 0 4px #b38aff;
-    }
-    button, select, input {
-      background-color: #5c33cc;
-      color: #f1e7ff;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 12px;
-      box-shadow: 0 0 8px rgba(92, 51, 204, 0.6);
-      width: 100%;
-      box-sizing: border-box;
-    }
-    button:hover, select:hover, input:hover {
-      background-color: #7e57ff;
-      box-shadow: 0 0 12px rgba(126, 87, 255, 0.9);
-    }
-    input[type="text"], input[type="datetime-local"], select {
-      background-color: #3e1f6e;
-      color: #d8c7f9;
-      border: 1px solid #7e57ff;
-      box-shadow: inset 0 0 6px #5c33cc;
-      font-size: 1rem;
-      border-radius: 8px;
-      transition: border-color 0.3s ease;
-      padding: 10px;
-    }
-    input[type="text"]:focus, input[type="datetime-local"]:focus, select:focus {
-      border-color: #b38aff;
-      outline: none;
-      box-shadow: 0 0 10px #b38aff;
-    }
-
-    /* Корзина-иконка */
-    .cart-icon {
-      position: fixed;
-      top: 20px;
-      right: 30px;
-      background-color: #7e57ff;
-      padding: 15px;
-      border-radius: 50%;
-      box-shadow: 0 0 12px #b38aff;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .cart-icon:hover {
-      background-color: #a68eff;
-      box-shadow: 0 0 18px #d2b9ff;
-    }
-    .cart-icon svg {
-      fill: #fff;
-      width: 28px;
-      height: 28px;
-    }
-
-    /* Модальное окно */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(4px);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-    .modal-overlay.active {
-      display: flex;
-    }
-    .modal-content {
-      background: rgba(38, 16, 66, 0.95);
-      border-radius: 20px;
-      max-width: 500px;
-      width: 100%;
-      padding: 30px 30px 40px 30px;
-      box-shadow: 0 0 25px #b38aff;
-      position: relative;
-      color: #d8c7f9;
-      animation: fadeIn 0.4s ease forwards;
-    }
-    .modal-content h2 {
-      margin-top: 0;
-      margin-bottom: 20px;
-      color: #b38aff;
-      text-shadow: 0 0 6px #a66cff;
-      text-align: center;
-    }
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: transparent;
-      border: none;
-      font-size: 28px;
-      color: #d8c7f9;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-    .close-btn:hover {
-      color: #a68eff;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
-    <h1>RPM Стрип-клуб — Услуги Onyx</h1>
+    <h1>RPM Стрип-клуб</h1>
 
-    <nav>
-      <button onclick="showSection('desc')">Описание</button>
-      <button onclick="showSection('price')">Прайс</button>
-      <button onclick="showSection('vip')">VIP Клиент</button>
-    </nav>
+    <form id="orderForm" class="order-form">
+      <label>Ник в Discord:
+        <input type="text" name="discord" required />
+      </label>
 
-    <div id="desc" class="tab active">
-      <h2>Что на сайте</h2>
-      <p><strong>Сутенёр: someteaze</strong> представляет первый сайт по стрип-клубу.<br />
-        Связь:<br />
-        Дискорд: <code>wsometeazew</code><br />
-        Телеграм: <code>@crips_someteaze</code>
-      </p>
-    </div>
+      <label>Ник на RPM:
+        <input type="text" name="rpm" required />
+      </label>
 
-    <div id="price" class="tab">
-      <h2>Категории услуг</h2>
-      <div style="margin-bottom: 15px;">
-        <button onclick="showPriceCategory('intim')">Интимные</button>
-        <button onclick="showPriceCategory('extra')">Дополнительные</button>
-      </div>
-
-      <div id="intim" class="price-category">
-        <h3>💋 Интимные услуги</h3>
-        <ul>
-          <li>Стандарт (1 час) — 40000$</li>
-          <li>Минет — 25000$</li>
-          <li>Женское доминирование — 38000$</li>
-          <li>Подчинение — 80000$</li>
-          <li>Шибари — 20000$</li>
-          <li>BDSM — 40000$</li>
-        </ul>
-      </div>
-
-      <div id="extra" class="price-category" style="display:none;">
-        <h3>💃 Дополнительные услуги</h3>
-        <ul>
-          <li>Стриптиз / Приват-танец — 10000$</li>
-          <li>Совместная ванна + массаж — 25000$</li>
-          <li>Ночь со мной — 100000$</li>
-          <li>Фото-/видеосъёмка + сопровождение — 80000$</li>
-        </ul>
-      </div>
-    </div>
-
-    <div id="vip" class="tab">
-      <h2>👑 VIP Клиент — 200.000$</h2>
-      <p>Статус VIP клиента предоставляет следующие преимущества:</p>
-      <ul>
-        <li>Персональный менеджер 24/7</li>
-        <li>Приоритет в обслуживании</li>
-        <li>Скидка 10% на все услуги</li>
-        <li>VIP-бейдж в Discord и RPM</li>
-      </ul>
-      <p>Чтобы приобрести статус, оформите заказ с выбором "VIP Клиент" в форме заказа. После вам отпишут в личные сообщения.</p>
-    </div>
-  </div>
-
-  <!-- Иконка корзины -->
-  <div class="cart-icon" title="Оформить заказ" id="openOrderBtn" aria-label="Открыть форму заказа">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-12.824-3l1.58-9h14.484l-1.58 9h-14.484zm15.324-11h-17v2h1.647l3.65 20h12.606v-2h-11.955l-.735-4h13.822l1.395-8h-15.305z"/>
-    </svg>
-  </div>
-
-  <!-- Модальное окно с формой заказа -->
-  <div class="modal-overlay" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
-    <div class="modal-content">
-      <button class="close-btn" id="closeOrderBtn" aria-label="Закрыть форму заказа">&times;</button>
-      <h2 id="modalTitle">📝 Оформить заказ</h2>
-      <form id="orderForm">
-        <label for="discordInput">Ник в Discord:</label>
-        <input type="text" id="discordInput" name="discord" required />
-
-        <label for="rpmInput">Ник на RPM:</label>
-        <input type="text" id="rpmInput" name="rpm" required />
-
-        <label for="serviceSelect">Выберите услугу:</label>
-        <select id="serviceSelect" name="service" required>
+      <label>Выберите услугу:
+        <select name="service" id="serviceSelect" required>
           <option value="Стандарт (1 час)">Стандарт (1 час)</option>
           <option value="Минет">Минет</option>
           <option value="Женское доминирование">Женское доминирование</option>
@@ -287,97 +33,101 @@
           <option value="Фото-/видеосъёмка + сопровождение">Фото-/видеосъёмка + сопровождение</option>
           <option value="VIP Клиент">VIP Клиент</option>
         </select>
+      </label>
 
-        <label for="dateInput" id="labelDate">Когда:</label>
-        <input type="datetime-local" id="dateInput" name="date" required />
+      <label id="dateLabel">Когда:
+        <input type="datetime-local" name="date" id="dateInput" required />
+      </label>
 
-        <label for="promoInput" id="labelPromo">Промокод (если есть):</label>
-        <input type="text" id="promoInput" name="promo" placeholder="Введите промокод" />
+      <label id="promoLabel">Промокод (если есть):
+        <input type="text" name="promo" id="promoInput" placeholder="Введите промокод" />
+      </label>
 
-        <p id="priceDisplay"></p>
-
-        <button type="submit">Подтвердить заказ</button>
-      </form>
-    </div>
+      <button type="submit" class="btn-submit">Подтвердить заказ</button>
+    </form>
   </div>
 
   <script>
-    // Навигация по вкладкам
-    const tabs = document.querySelectorAll('.tab');
-    function showSection(id) {
-      tabs.forEach(t => t.classList.remove('active'));
-      const el = document.getElementById(id);
-      if(el) el.classList.add('active');
-    }
+    const webhookUrl = 'https://discord.com/api/webhooks/1377196690099933279/o4XKVX179xTD6IV9FIG-kRg9w_t8XDlBG_xewTh2uRVLJfxvgzUpJtS6rFwOw5eXSID1';
+    const roleId = '1371644238349205535';
 
-    // Показ/скрытие категорий прайса
-    function showPriceCategory(cat) {
-      document.getElementById('intim').style.display = (cat === 'intim') ? 'block' : 'none';
-      document.getElementById('extra').style.display = (cat === 'extra') ? 'block' : 'none';
-    }
-
-    // Подсчет и показ цены в форме заказа
-    const priceMap = {
-      "Стандарт (1 час)": 40000,
-      "Минет": 25000,
-      "Женское доминирование": 38000,
-      "Подчинение": 80000,
-      "Шибари": 20000,
-      "BDSM": 40000,
-      "Стриптиз / Приват-танец": 10000,
-      "Совместная ванна + массаж": 25000,
-      "Ночь со мной": 100000,
-      "Фото-/видеосъёмка + сопровождение": 80000,
-      "VIP Клиент": 200000
-    };
-    const serviceSelect = document.getElementById('serviceSelect');
-    const priceDisplay = document.getElementById('priceDisplay');
-
-    function updatePrice() {
-      const val = serviceSelect.value;
-      const price = priceMap[val] || 0;
-      priceDisplay.textContent = `Цена: ${price.toLocaleString('ru-RU')} $`;
-    }
-    serviceSelect.addEventListener('change', updatePrice);
-    updatePrice();
-
-    // Модальное окно
-    const openOrderBtn = document.getElementById('openOrderBtn');
-    const orderModal = document.getElementById('orderModal');
-    const closeOrderBtn = document.getElementById('closeOrderBtn');
-
-    openOrderBtn.addEventListener('click', () => {
-      orderModal.classList.add('active');
-      orderModal.focus();
-    });
-
-    closeOrderBtn.addEventListener('click', () => {
-      orderModal.classList.remove('active');
-    });
-
-    // Закрыть модал по клику вне окна
-    orderModal.addEventListener('click', (e) => {
-      if(e.target === orderModal) {
-        orderModal.classList.remove('active');
-      }
-    });
-
-    // Отправка формы — пока просто alert с данными
     const orderForm = document.getElementById('orderForm');
-    orderForm.addEventListener('submit', e => {
+    const serviceSelect = document.getElementById('serviceSelect');
+    const dateLabel = document.getElementById('dateLabel');
+    const dateInput = document.getElementById('dateInput');
+    const promoLabel = document.getElementById('promoLabel');
+
+    function toggleVipFields() {
+      if (serviceSelect.value === 'VIP Клиент') {
+        dateLabel.style.display = 'none';
+        promoLabel.style.display = 'none';
+        dateInput.required = false;
+      } else {
+        dateLabel.style.display = 'block';
+        promoLabel.style.display = 'block';
+        dateInput.required = true;
+      }
+    }
+
+    serviceSelect.addEventListener('change', toggleVipFields);
+    toggleVipFields();
+
+    async function sendDiscordWebhook(orderData) {
+      const embed = {
+        title: "🛒 Новый заказ в RPM Стрип-клуб",
+        color: 0x7e57ff,
+        fields: [
+          { name: "Discord", value: orderData.discord || 'Не указан', inline: true },
+          { name: "RPM Ник", value: orderData.rpm || 'Не указан', inline: true },
+          { name: "Услуга", value: orderData.service || 'Не указана', inline: false },
+        ],
+        timestamp: new Date().toISOString(),
+      };
+
+      if (orderData.date) {
+        embed.fields.push({ name: "Когда", value: orderData.date, inline: true });
+      }
+      if (orderData.promo) {
+        embed.fields.push({ name: "Промокод", value: orderData.promo, inline: true });
+      }
+
+      const payload = {
+        content: `<@&${roleId}>`,
+        embeds: [embed]
+      };
+
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Ошибка отправки вебхука: ${response.statusText}`);
+      }
+    }
+
+    orderForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
       const formData = new FormData(orderForm);
-      const discord = formData.get('discord');
-      const rpm = formData.get('rpm');
-      const service = formData.get('service');
-      const date = formData.get('date');
-      const promo = formData.get('promo');
+      const orderData = {
+        discord: formData.get('discord').trim(),
+        rpm: formData.get('rpm').trim(),
+        service: formData.get('service'),
+        date: formData.get('date'),
+        promo: formData.get('promo').trim()
+      };
 
-      alert(`Заказ оформлен!\nDiscord: ${discord}\nRPM: ${rpm}\nУслуга: ${service}\nКогда: ${date}\nПромокод: ${promo ? promo : 'нет'}`);
-
-      orderForm.reset();
-      updatePrice();
-      orderModal.classList.remove('active');
+      try {
+        await sendDiscordWebhook(orderData);
+        alert('Заказ успешно отправлен и персонал уведомлён!');
+        orderForm.reset();
+        toggleVipFields();
+      } catch (error) {
+        console.error(error);
+        alert('Ошибка при отправке заказа. Попробуйте позже.');
+      }
     });
   </script>
 </body>
